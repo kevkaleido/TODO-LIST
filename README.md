@@ -3,6 +3,7 @@ Keep track of what needs doing and what got done with this simple todo list appl
 
 ## Features
 
-- **Add Items**: Users can add new todo items with timestamps of the time these items are added.
-- **Remove Items**: Users can remove todo items, and these items are saved in a history list with timestamps of the time they are marked as done.
+**Add Items**: Users can add new todo items.
+- **Remove Items**: Users can remove todo items, and these items are saved in a history list.
+- **Mark as Completed**: Users can mark items as completed, with strikethrough visual indication  .
 - **Persistence**: Todos and history are saved in local storage, so they persist across sessions.
