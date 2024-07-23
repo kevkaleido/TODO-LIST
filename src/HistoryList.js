@@ -3,7 +3,7 @@ import React from 'react';
 const HistoryList = ({ history, clearHistory }) => {
   // Handle the clearing of the history list after confirmation
   const handleClearHistory = () => {
-    const confirmClear = window.confirm("Make sure you really want to clear list?");
+    const confirmClear = window.confirm("Sure you want to clear list?");
     if (confirmClear) {
       clearHistory();
     }

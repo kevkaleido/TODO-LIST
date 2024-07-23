@@ -12,7 +12,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
+    min-height: 150vh;
     text-align: center;
   }
   
@@ -22,14 +22,10 @@
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
     padding: 20px;
     max-width: 600px;
-    width: 90%;
+    width: 100%;
     transition: transform 0.3s;
   }
-  
-  #app:hover {
-    transform: scale(1.05);
-  }
-  
+ 
   h1, h2 {
     color: #ff0066;
     text-shadow: 2px 2px #fff700;
@@ -59,7 +55,9 @@
     padding: 10px 20px;
     border-radius: 10px;
     cursor: pointer;
+    transform: scale(0.7);
     transition: background 0.3s, transform 0.3s;
+    
   }
   
   button:hover {
@@ -148,7 +146,7 @@
     }
   
     button {
-      width: 100%;
+      width: 50%;
       padding: 15px;
       margin-top: 10px;
     }

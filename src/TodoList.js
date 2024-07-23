@@ -40,7 +40,7 @@ const TodoList = ({ todos, addTodo, removeTodo, toggleComplete }) => {
         {todos.map((todo, index) => (
           <li key={index} className={todo.completed ? 'completed' : ''}>
             <span onClick={() => toggleComplete(index)}>{todo.text}</span>
-            <button onClick={() => handleRemoveTodo(index)}>Done</button>
+            <button onClick={() => handleRemoveTodo(index)}>done</button>
             <br />
             <small>{todo.timestamp}</small>
           </li>

@@ -48,7 +48,7 @@ const addTodo = (todo) => {
 
   return (
     <div id="app">
-      <h1>WO2DO</h1>
+      <h1>2do</h1>
       <TodoList todos={todos} addTodo={addTodo} removeTodo={removeTodo} toggleComplete={toggleComplete} />
       <h2>What got done</h2>
       <HistoryList history={history} clearHistory={clearHistory} />
