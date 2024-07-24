@@ -1,12 +1,24 @@
-import React from 'react';
+// src/components/HistoryList.js
+import React, { useState } from 'react';
+import Modal from './Modal';
 
+/**
+ * HistoryList Component
+ * @param {Array} history - List of history items
+ * @param {function} clearHistory - Function to clear the history
+ */
 const HistoryList = ({ history, clearHistory }) => {
-  // Handle the clearing of the history list after confirmation
+  const [showModal, setShowModal] = useState(false); // State to show/hide modal
+
+  // Show confirmation modal before clearing history
   const handleClearHistory = () => {
-    const confirmClear = window.confirm("Sure you want to clear list?");
-    if (confirmClear) {
-      clearHistory();
-    }
+    setShowModal(true);
+  };
+
+  // Handle confirmed clearing of the history list
+  const handleConfirmClear = () => {
+    clearHistory();
+    setShowModal(false);
   };
 
   return (
@@ -21,6 +33,14 @@ const HistoryList = ({ history, clearHistory }) => {
         ))}
       </ul>
       <button onClick={handleClearHistory}>Clear History</button>
+
+      <Modal
+        show={showModal}
+        title="Confirm"
+        message="Are you sure you want to clear history list?"
+        onConfirm={handleConfirmClear}
+        onClose={() => setShowModal(false)}
+      />
     </div>
   );
 };

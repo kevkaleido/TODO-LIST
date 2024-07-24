@@ -24,6 +24,10 @@
     max-width: 600px;
     width: 100%;
     transition: transform 0.3s;
+    padding-top: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+
   }
  
   h1, h2 {
@@ -73,12 +77,13 @@
     list-style: none;
     margin: 20px 0;
     padding: 0;
-    max-height: 200px; /* Ensuring list is scrollable when necessary */
+    max-height: 300px; /* Ensuring list is scrollable when necessary */
     overflow-y: auto;
   }
   
+
   ul.scrollable {
-    max-height: 200px; /* Height for scrollable list */
+    max-height: 300px; /* Height for scrollable list */
   }
   
   ul.scrollable::-webkit-scrollbar {
@@ -108,6 +113,7 @@
     flex-direction: column;
   }
   
+  
   li:hover {
     background: #ffcc00;
     transform: scale(1.05);
@@ -135,6 +141,12 @@
   @media (max-width: 600px) {
     #app {
       padding: 10px;
+      padding-top: 20px;
+      max-width: 90%;
+      margin: auto;
+      margin-top: 20px;
+      margin-bottom: 20px;
+      
     }
   
     h1, h2 {
@@ -142,13 +154,13 @@
     }
   
     input[type="text"] {
-      width: 100%;
+      width: 60%;
     }
   
     button {
-      width: 50%;
+      width: 40%;
       padding: 15px;
-      margin-top: 10px;
+      margin-top: 5px;
     }
   
     ul {
@@ -156,7 +168,26 @@
     }
   
     li {
-      font-size: 0.9rem;
+      font-size: 1rem;
     }
+
+    
+  ul.scrollable {
+    max-height: 300px; /* Height for scrollable list */
+  }
+  
+  ul.scrollable::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  ul.scrollable::-webkit-scrollbar-thumb {
+    background: #ff0066;
+    border-radius: 10px;
+  }
+  
+  ul.scrollable::-webkit-scrollbar-thumb:hover {
+    background: #fff700;
+  }
+    
   }
   
