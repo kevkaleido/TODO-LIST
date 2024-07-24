@@ -49,12 +49,12 @@ const HistoryList = ({ history, clearSelectedHistory }) => {
           </li>
         ))}
       </ul>
-      <button onClick={handleClearHistory}>Clear Selected History</button>
+      <button onClick={handleClearHistory}>X</button>
 
       <Modal
         show={showModal}
         title="Confirm"
-        message="Are you sure you want to clear selected item? Selected items appear darker"
+        message="Sure you want to clear selected task(s) from history?"
         onConfirm={handleConfirmClear}
         onClose={() => setShowModal(false)}
       />

@@ -69,7 +69,7 @@ const TodoList = ({ todos, addTodo, removeTodo, toggleComplete }) => {
               e.stopPropagation(); // Prevent toggling complete when clicking remove button
               confirmRemoveTodo(index);
             }}>
-              remove
+              X
             </button>
             <span>{todo.timestamp}</span>
           </li>
@@ -79,7 +79,7 @@ const TodoList = ({ todos, addTodo, removeTodo, toggleComplete }) => {
       <Modal
         show={showModal}
         title="Confirm Remove"
-        message="Are you sure you want to remove this task?"
+        message="Sure you want to remove this task?"
         onConfirm={handleConfirmRemove}
         onClose={() => setShowModal(false)}
       />
