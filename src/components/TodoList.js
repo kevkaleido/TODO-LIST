@@ -65,7 +65,7 @@ const TodoList = ({ todos, addTodo, removeTodo, toggleComplete }) => {
             <span>
               {todo.text}
             </span>
-            <button onClick={(e) => {
+            <button className="to-doButton" onClick={(e) => {
               e.stopPropagation(); // Prevent toggling complete when clicking remove button
               confirmRemoveTodo(index);
             }}>

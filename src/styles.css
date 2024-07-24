@@ -38,7 +38,7 @@
   }
 
   h2 {
-    margin-top: 40px;
+    margin-top: 30px;
   }
   
   input[type="text"] {
@@ -105,7 +105,7 @@
   }
   
   li {
-    background: #fff700;
+    background: #ffd500;
     color: #ff0066;
     margin-bottom: 10px;
     padding: 10px;
@@ -141,6 +141,11 @@
   small {
     color: #666;
     margin-top: 5px;
+  }
+
+  .historyList{
+    background-color: #d8d2d2;
+    color: #c64f4f;
   }
   
   @media (max-width: 600px) {
@@ -197,4 +202,6 @@
   }
  
 
-  
+.to-doButton{
+  margin-left: auto;
+}
