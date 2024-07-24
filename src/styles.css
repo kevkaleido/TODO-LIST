@@ -70,7 +70,7 @@
   }
   
   button:hover {
-    background: #fff700;
+    background: #817e7e;
     transform: translateY(-3px);
   }
   
@@ -145,8 +145,18 @@
 
   .historyList{
     background-color: #d8d2d2;
-    color: #c64f4f;
+    color: #130000;
   }
+
+ 
+.historyList.selected {
+  background-color: #817e7e;
+}
+
+.clearButton{
+  
+}
+
   
   @media (max-width: 600px) {
     #app {

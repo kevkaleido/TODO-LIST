@@ -55,9 +55,11 @@ const App = () => {
     setTodos(newTodos);
   };
 
-  // Clear the history list
-  const clearHistory = () => {
-    setHistory([]);
+  // Clear selected history items
+  const clearSelectedHistory = (selectedIndices) => {
+    setHistory((prevHistory) =>
+      prevHistory.filter((_, index) => !selectedIndices.includes(index))
+    );
   };
 
   return (
@@ -65,7 +67,7 @@ const App = () => {
       <h1>2doList</h1>
       <TodoList todos={todos} addTodo={addTodo} removeTodo={removeTodo} toggleComplete={toggleComplete} />
       <h2>History</h2>
-      <HistoryList history={history} clearHistory={clearHistory} />
+      <HistoryList history={history} clearSelectedHistory={clearSelectedHistory} />
     </div>
   );
 };
