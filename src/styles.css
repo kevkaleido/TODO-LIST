@@ -64,7 +64,7 @@
     padding: 10px 20px;
     border-radius: 10px;
     cursor: pointer;
-    transform: scale(0.7);
+    transform: scale(0.8);
     transition: background 0.3s, transform 0.3s;
     
   }

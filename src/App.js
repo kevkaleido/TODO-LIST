@@ -4,6 +4,18 @@ import TodoList from './components/TodoList';
 import HistoryList from './components/HistoryList';
 import './styles.css';
 
+const formatDateTime = (date) => {
+  const day = String(date.getDate()).padStart(2, '0');
+  const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-based
+  const year = String(date.getFullYear()).slice(-2); // Get last two digits of year
+  const hours = date.getHours();
+  const minutes = String(date.getMinutes()).padStart(2, '0');
+  const ampm = hours >= 12 ? 'PM' : 'AM';
+  const formattedHours = hours % 12 || 12; // Adjust hours for 12-hour format
+  
+  return `${formattedHours}:${minutes} ${ampm} ${day}/${month}/${year}`;
+};
+
 const App = () => {
   const [todos, setTodos] = useState(JSON.parse(localStorage.getItem('todos')) || []);
   const [history, setHistory] = useState(JSON.parse(localStorage.getItem('history')) || []);
@@ -20,7 +32,7 @@ const App = () => {
 
   // Add a new todo item with a timestamp
   const addTodo = (todo) => {
-    const timestamp = new Date().toLocaleString();
+    const timestamp = formatDateTime(new Date());
     setTodos([{ text: todo, completed: false, timestamp }, ...todos]);
   };
 
@@ -30,7 +42,7 @@ const App = () => {
     const [removedTodo] = newTodos.splice(index, 1);
     setTodos(newTodos);
 
-    const currentTimestamp = new Date().toLocaleString();
+    const currentTimestamp = formatDateTime(new Date());
     const updatedTodo = { ...removedTodo, timestamp: currentTimestamp };
     setHistory([updatedTodo, ...history]);
   };
