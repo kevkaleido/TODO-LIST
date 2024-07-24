@@ -30,19 +30,22 @@ body {
 }
 
 h1, h2 {
-  color: #e60000;
+  color: #74b235;
   text-shadow: 2px 2px #000000;
   margin-bottom: 20px;
 }
 
 h2 {
   margin-top: 30px;
+  color: #e60000;
 }
+
+
 
 input[type="text"] {
   width: 80%;
   padding: 10px;
-  border: 2px solid #e60000;
+  border: 2px solid #46612b;
   border-radius: 10px;
   margin-bottom: 20px;
   background: #1a1a1a;
@@ -52,11 +55,14 @@ input[type="text"] {
 }
 
 input[type="text"]:focus {
-  border-color: #ff0000;
+  border-color: #74b235;
   background: #333333;
   color: #ffffff;
 }
 
+.addButton{
+  background: #46612b;
+}
 button {
   background: #e60000;
   color: #ffffff;
@@ -143,7 +149,7 @@ small {
 
 .historyList {
   background-color: #4d4d4d;
-  color: #e6e6e6;
+  color: #bda1a1;
 }
 
 .historyList.selected {

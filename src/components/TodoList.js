@@ -53,7 +53,7 @@ const TodoList = ({ todos, addTodo, removeTodo, toggleComplete }) => {
         onKeyPress={handleKeyPress}
         placeholder="Add a new todo"
       />
-      <button onClick={handleAddTodo}>Add</button>
+      <button className="addButton"onClick={handleAddTodo}>Add</button>
 
       <ul className={todos.length > 2 ? 'scrollable' : ''}>
         {todos.map((todo, index) => (
