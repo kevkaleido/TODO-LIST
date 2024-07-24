@@ -50,7 +50,7 @@
   /* Modal buttons container styling */
   .modal-buttons {
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     transform: scale(1.3);
   }
   
