@@ -172,6 +172,10 @@
     h1, h2 {
       font-size: 1.5rem;
     }
+
+    h2 {
+      margin-top: 40px;
+    }
   
     input[type="text"] {
       width: 60%;
@@ -182,6 +186,8 @@
       padding: 15px;
       margin-top: 5px;
       transform: scale(0.9);
+      text-align: center;
+      
     }
   
     ul {

@@ -54,7 +54,7 @@ const HistoryList = ({ history, clearSelectedHistory }) => {
       <Modal
         show={showModal}
         title="Confirm"
-        message="Are you sure you want to clear selected history items? Selected items appear darker"
+        message="Are you sure you want to clear selected item? Selected items appear darker"
         onConfirm={handleConfirmClear}
         onClose={() => setShowModal(false)}
       />
