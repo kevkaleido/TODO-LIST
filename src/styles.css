@@ -1,224 +1,231 @@
 /* Basic reset to ensure consistency across browsers */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Arial', sans-serif;
-  }
-  
-  body {
-    background: linear-gradient(135deg, #ffcc00, #ff0066);
-    color: #333;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    text-align: center;
-  }
-  
-  #app {
-    background: rgba(255, 255, 255, 0.9);
-    border-radius: 15px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-    padding: 20px;
-    max-width: 600px;
-    width: 100%;
-    transition: transform 0.3s;
-    padding-top: 20px;
-    margin-top: 20px;
-    margin-bottom: 20px;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Courier New', monospace;
+}
 
-  }
- 
-  h1, h2 {
-    color: #ff0066;
-    text-shadow: 2px 2px #fff700;
-    margin-bottom: 20px;
-    
-  }
+body {
+  background: linear-gradient(135deg, #2d2d2d, #000000);
+  color: #cccccc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  text-align: center;
+}
 
-  h2 {
-    margin-top: 30px;
-  }
-  
-  input[type="text"] {
-    width: 80%;
-    padding: 10px;
-    border: 2px solid #ff0066;
-    border-radius: 10px;
-    margin-bottom: 20px;
-    outline: none;
-    transition: all 0.3s;
-  }
-  
-  input[type="text"]:focus {
-    border-color: #fff700;
-    background: #ff0066;
-    color: #fff;
-  }
-  
-  button {
-    background: #ff0066;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 10px;
-    cursor: pointer;
-    transform: scale(0.8);
-    transition: background 0.3s, transform 0.3s;
-    
-  }
-  
-  button:hover {
-    background: #817e7e;
-    transform: translateY(-3px);
-  }
-  
-  button:active {
-    transform: translateY(1px);
-  }
-  
-  ul {
-    list-style: none;
-    margin: 20px 0;
-    padding: 0;
-    max-height: 300px; /* Ensuring list is scrollable when necessary */
-    overflow-y: auto;
-  }
-  
+#app {
+  background: rgba(30, 30, 30, 0.9);
+  border-radius: 15px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+  padding: 20px;
+  max-width: 600px;
+  width: 100%;
+  transition: transform 0.3s;
+  padding-top: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
 
-  ul.scrollable {
-    max-height: 300px; /* Height for scrollable list */
-  }
-  
-  ul.scrollable::-webkit-scrollbar {
-    width: 8px;
-  }
-  
-  ul.scrollable::-webkit-scrollbar-thumb {
-    background: #ff0066;
-    border-radius: 10px;
-  }
-  
-  ul.scrollable::-webkit-scrollbar-thumb:hover {
-    background: #fff700;
-  }
-  
-  li {
-    background: #ffd500;
-    color: #ff0066;
-    margin-bottom: 10px;
-    padding: 10px;
-    border-radius: 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    transition: background 0.3s, transform 0.3s;
-    flex-direction: column;
-  }
-  
-  
-  li:hover {
-    background: #ffcc00;
-    transform: scale(1.05);
-  }
-  
-  li.completed {
-    text-decoration: line-through;
-    background: #d3d3d3;
-  }
-  
-  span {
-    cursor: pointer;
-    transition: color 0.3s;
-  }
-  
-  span:hover {
-    color: #fff700;
-  }
-  
-  small {
-    color: #666;
-    margin-top: 5px;
-  }
+h1, h2 {
+  color: #e60000;
+  text-shadow: 2px 2px #000000;
+  margin-bottom: 20px;
+}
 
-  .historyList{
-    background-color: #d8d2d2;
-    color: #130000;
-  }
+h2 {
+  margin-top: 30px;
+}
 
- 
+input[type="text"] {
+  width: 80%;
+  padding: 10px;
+  border: 2px solid #e60000;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  background: #1a1a1a;
+  color: #e6e6e6;
+  outline: none;
+  transition: all 0.3s;
+}
+
+input[type="text"]:focus {
+  border-color: #ff0000;
+  background: #333333;
+  color: #ffffff;
+}
+
+button {
+  background: #e60000;
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  transform: scale(0.8);
+  transition: background 0.3s, transform 0.3s;
+}
+
+button:hover {
+  background: #404040;
+  transform: translateY(-1px);
+}
+
+button:active {
+  transform: translateY(1px);
+}
+
+ul {
+  list-style: none;
+  margin: 20px 0;
+  padding: 0;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+ul.scrollable {
+  max-height: 300px;
+}
+
+ul.scrollable::-webkit-scrollbar {
+  width: 8px;
+}
+
+ul.scrollable::-webkit-scrollbar-thumb {
+  background: #e60000;
+  border-radius: 10px;
+}
+
+ul.scrollable::-webkit-scrollbar-thumb:hover {
+  background: #ff0000;
+}
+
+li {
+  background: #333333;
+  color: #e60000;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+  transition: background 0.3s, transform 0.3s;
+  flex-direction: column;
+}
+
+li:hover {
+  background: #404040;
+  transform: scale(1.05);
+}
+
+li.completed {
+  text-decoration: line-through;
+  background: #4d1e1e;
+}
+
+span {
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+span:hover {
+  color: #ff0000;
+}
+
+small {
+  color: #999999;
+  margin-top: 5px;
+}
+
+.historyList {
+  background-color: #4d4d4d;
+  color: #e6e6e6;
+}
+
 .historyList.selected {
-  background-color: #817e7e;
+  background-color: #4d1e1e;
+  color: #3f3e3e;
 }
 
-.clearButton{
-  
+.clearButton {
+  background: #4d4d4d;
+  color: #e6e6e6;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  transform: scale(0.8);
+  transition: background 0.3s, transform 0.3s;
 }
 
-  
-  @media (max-width: 600px) {
-    #app {
+.clearButton:hover {
+  background: #333333;
+  transform: translateY(-3px);
+}
+
+.clearButton:active {
+  transform: translateY(1px);
+}
+
+@media (max-width: 600px) {
+  #app {
       padding: 10px;
       padding-top: 20px;
       max-width: 90%;
       margin: auto;
       margin-top: 20px;
       margin-bottom: 20px;
-      
-    }
-  
-    h1, h2 {
-      font-size: 1.5rem;
-    }
+  }
 
-    h2 {
+  h1, h2 {
+      font-size: 1.5rem;
+  }
+
+  h2 {
       margin-top: 40px;
-    }
-  
-    input[type="text"] {
+  }
+
+  input[type="text"] {
       width: 60%;
-    }
-  
-    button {
+  }
+
+  button {
       width: 40%;
       padding: 15px;
       margin-top: 5px;
       transform: scale(0.9);
       text-align: center;
-      
-    }
-  
-    ul {
+  }
+
+  ul {
       padding: 0;
-    }
-  
-    li {
+  }
+
+  li {
       font-size: 1rem;
-    }
+  }
 
-    
   ul.scrollable {
-    max-height: 300px; /* Height for scrollable list */
+      max-height: 300px;
   }
-  
-  ul.scrollable::-webkit-scrollbar {
-    width: 8px;
-  }
-  
-  .scrollable::-webkit-scrollbar-thumb {
-    background: #ff0066;
-    border-radius: 10px;
-  }
-  
-  ul.scrollable::-webkit-scrollbar-thumb:hover {
-    background: #fff700;
-  }
-    
-  }
- 
 
-.to-doButton{
+  ul.scrollable::-webkit-scrollbar {
+      width: 8px;
+  }
+
+  ul.scrollable::-webkit-scrollbar-thumb {
+      background: #e60000;
+      border-radius: 10px;
+  }
+
+  ul.scrollable::-webkit-scrollbar-thumb:hover {
+      background: #ff0000;
+  }
+}
+
+.to-doButton {
   margin-left: auto;
 }

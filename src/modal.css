@@ -2,92 +2,97 @@
 
 /* Basic reset for modal to ensure consistency across browsers */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Arial', sans-serif;
-  }
-  
-  /* Modal overlay styling */
-  .modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000; /* Ensure it is above other elements */
-  }
-  
-  /* Modal content styling */
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Arial', sans-serif;
+}
+
+/* Modal overlay styling */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Modal content styling */
+.modal-content {
+  background: rgba(30, 30, 30, 0.9);
+  border-radius: 15px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+  padding: 10px;
+  max-width: 300px;
+  width: 50%;
+  transition: transform 0.3s, background 0.3s;
+  text-align: center;
+}
+
+.modal-content:hover {
+  transform: scale(1.02);
+  background: rgba(45, 45, 45, 0.95);
+}
+
+/* Modal title styling */
+.modal-content h2 {
+  color: #e60000;
+  text-shadow: 2px 2px #000000;
+  margin-bottom: 20px;
+}
+
+/* Modal message styling */
+.modal-content p {
+  color: #cccccc;
+  margin-bottom: 20px;
+}
+
+/* Modal buttons container styling */
+.modal-buttons {
+  display: flex;
+  justify-content: space-around;
+  transform: scale(0.9);
+}
+
+/* Modal button styling */
+.modal-buttons button {
+  background: #e60000;
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  transform: scale(0.7);
+  transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+}
+
+.modal-buttons button:hover {
+  background: #404040;
+  transform: translateY(-3px);
+  box-shadow: 0 0 10px rgba(230, 0, 0, 0.7);
+}
+
+.modal-buttons button:active {
+  transform: translateY(1px);
+}
+
+/* Responsive adjustments for modal */
+@media (max-width: 600px) {
   .modal-content {
-    background: rgba(255, 255, 255, 0.9);
-    border-radius: 15px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-    padding: 10px;
-    max-width: 300px;
-    width: 50%;
-    transition: transform 0.3s;
-    text-align: center;
-  }
-  
-  /* Modal title styling */
-  .modal-content h2 {
-    color: #ff0066;
-    text-shadow: 2px 2px #fff700;
-    margin-bottom: 20px;
-  }
-  
-  /* Modal message styling */
-  .modal-content p {
-    color: #333;
-    margin-bottom: 20px;
-  }
-  
-  /* Modal buttons container styling */
-  .modal-buttons {
-    display: flex;
-    justify-content: space-around;
-    transform: scale(0.9);
-  }
-  
-  /* Modal button styling */
-  .modal-buttons button {
-    background: #ff0066;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 10px;
-    cursor: pointer;
-    transform: scale(0.7);
-    transition: background 0.3s, transform 0.3s;
-  }
-  
-  .modal-buttons button:hover {
-    background: #fff700;
-    transform: translateY(-3px);
-  }
-  
-  .modal-buttons button:active {
-    transform: translateY(1px);
-  }
-  
-  /* Responsive adjustments for modal */
-  @media (max-width: 600px) {
-    .modal-content {
       padding: 10px;
-    }
-  
-    .modal-content h2 {
+  }
+
+  .modal-content h2 {
       font-size: 1.5rem;
-    }
-  
-    .modal-buttons button {
+  }
+
+  .modal-buttons button {
       width: 100px;
       padding: 10px;
-    }
   }
-  
+}
