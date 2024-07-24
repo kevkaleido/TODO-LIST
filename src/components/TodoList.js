@@ -55,7 +55,7 @@ const TodoList = ({ todos, addTodo, removeTodo, toggleComplete }) => {
       />
       <button onClick={handleAddTodo}>Add</button>
 
-      <ul className={todos.length > 4 ? 'scrollable' : ''}>
+      <ul className={todos.length > 2 ? 'scrollable' : ''}>
         {todos.map((todo, index) => (
           <li 
             key={index}

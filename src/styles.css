@@ -34,6 +34,11 @@
     color: #ff0066;
     text-shadow: 2px 2px #fff700;
     margin-bottom: 20px;
+    
+  }
+
+  h2 {
+    margin-top: 40px;
   }
   
   input[type="text"] {
@@ -180,7 +185,7 @@
     width: 8px;
   }
   
-  ul.scrollable::-webkit-scrollbar-thumb {
+  .scrollable::-webkit-scrollbar-thumb {
     background: #ff0066;
     border-radius: 10px;
   }
@@ -190,4 +195,6 @@
   }
     
   }
+ 
+
   

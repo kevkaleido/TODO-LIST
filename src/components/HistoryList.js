@@ -23,9 +23,9 @@ const HistoryList = ({ history, clearHistory }) => {
 
   return (
     <div>
-      <ul className={history.length > 4 ? 'scrollable' : ''}>
+      <ul className={history.length > 3 ? 'scrollable' : ''}>
         {history.map((item, index) => (
-          <li key={index}>
+          <li  key={index}>
             {item.text}
             <br />
             <small>{item.timestamp}</small>
