@@ -24,10 +24,10 @@
 
 /* Modal content styling */
 .modal-content {
-  background: rgba(30, 30, 30, 0.9);
-  border-radius: 15px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
-  padding: 10px;
+  background: rgba(20, 20, 20, 0.95);
+  border-radius: 20px;
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
+  padding: 15px;
   max-width: 300px;
   width: 50%;
   transition: transform 0.3s, background 0.3s;
@@ -35,20 +35,20 @@
 }
 
 .modal-content:hover {
-  transform: scale(1.02);
+  transform: scale(1.05);
   background: rgba(45, 45, 45, 0.95);
 }
 
 /* Modal title styling */
 .modal-content h2 {
-  color: #e60000;
-  text-shadow: 2px 2px #000000;
+  color: #ff5e79;
+  text-shadow: 2px 2px #002147;
   margin-bottom: 20px;
 }
 
 /* Modal message styling */
 .modal-content p {
-  color: #cccccc;
+  color: #e0e0e0;
   margin-bottom: 20px;
 }
 
@@ -61,24 +61,24 @@
 
 /* Modal button styling */
 .modal-buttons button {
-  background: #e60000;
+  background: #1ae5d8;
   color: #ffffff;
   border: none;
   padding: 10px 20px;
-  border-radius: 10px;
+  border-radius: 12px;
   cursor: pointer;
-  transform: scale(0.7);
+  transform: scale(0.8);
   transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
 }
 
 .modal-buttons button:hover {
-  background: #404040;
-  transform: translateY(-3px);
-  box-shadow: 0 0 10px rgba(230, 0, 0, 0.7);
+  background: #00c6ff;
+  transform: translateY(-2px);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
 }
 
 .modal-buttons button:active {
-  transform: translateY(1px);
+  transform: translateY(2px);
 }
 
 /* Responsive adjustments for modal */

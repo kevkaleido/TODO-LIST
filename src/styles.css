@@ -7,8 +7,8 @@
 }
 
 body {
-  background: linear-gradient(135deg, #2d2d2d, #000000);
-  color: #cccccc;
+  background: linear-gradient(135deg, #1c1c1c, #3e3e3e);
+  color: #f0f0f0;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -17,75 +17,74 @@ body {
 }
 
 #app {
-  background: rgba(30, 30, 30, 0.9);
-  border-radius: 15px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
-  padding: 20px;
+  background: rgba(20, 20, 20, 0.95);
+  border-radius: 20px;
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
+  padding: 25px;
   max-width: 600px;
   width: 100%;
   transition: transform 0.3s;
-  padding-top: 20px;
+  padding-top: 25px;
   margin-top: 20px;
   margin-bottom: 20px;
 }
 
 h1, h2 {
-  color: #74b235;
-  text-shadow: 2px 2px #000000;
-  margin-bottom: 20px;
+  color: #ff5e79;
+  text-shadow: 2px 2px #002147;
+  margin-bottom: 25px;
 }
 
 h2 {
   margin-top: 30px;
-  color: #e60000;
+  color: #1ae5d8;
 }
-
-
 
 input[type="text"] {
   width: 80%;
-  padding: 10px;
-  border: 2px solid #46612b;
-  border-radius: 10px;
+  padding: 12px;
+  border: 2px solid #1ae5d8;
+  border-radius: 12px;
   margin-bottom: 20px;
-  background: #1a1a1a;
-  color: #e6e6e6;
+  background: #141414;
+  color: #e0e0e0;
   outline: none;
   transition: all 0.3s;
 }
 
 input[type="text"]:focus {
-  border-color: #74b235;
+  border-color: #ff5e79;
   background: #333333;
   color: #ffffff;
 }
 
-.addButton{
-  background: #46612b;
+.addButton {
+  background: #1ae5d8;
 }
+
 button {
-  background: #e60000;
+  background: #ff5e79;
   color: #ffffff;
   border: none;
-  padding: 10px 20px;
-  border-radius: 10px;
+  padding: 12px 25px;
+  border-radius: 12px;
   cursor: pointer;
   transform: scale(0.8);
   transition: background 0.3s, transform 0.3s;
 }
 
 button:hover {
-  background: #404040;
-  transform: translateY(-1px);
+  background: #00c6ff;
+  transform: translateY(-2px);
 }
 
 button:active {
-  transform: translateY(1px);
+  transform: translateY(2px);
 }
 
 ul {
   list-style: none;
-  margin: 20px 0;
+  margin: 25px 0;
   padding: 0;
   max-height: 300px;
   overflow-y: auto;
@@ -96,41 +95,41 @@ ul.scrollable {
 }
 
 ul.scrollable::-webkit-scrollbar {
-  width: 8px;
+  width: 10px;
 }
 
 ul.scrollable::-webkit-scrollbar-thumb {
-  background: #e60000;
-  border-radius: 10px;
+  background: #ff5e79;
+  border-radius: 12px;
 }
 
 ul.scrollable::-webkit-scrollbar-thumb:hover {
-  background: #ff0000;
+  background: #ff1e50;
 }
 
 li {
-  background: #333333;
-  color: #74b235;
-  margin-bottom: 10px;
-  padding: 10px;
-  border-radius: 10px;
+  background: #292929;
+  color: #1ae5d8;
+  margin-bottom: 12px;
+  padding: 12px;
+  border-radius: 12px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
   transition: background 0.3s, transform 0.3s;
   flex-direction: column;
 }
 
 li:hover {
-  background: #404040;
-  transform: scale(1.05);
+  background: #353535;
+  transform: scale(1.07);
 }
 
 li.completed {
   text-decoration: line-through;
-  background: #2d3f18;
-  color: #e60000;;
+  background: #1a3e5c;
+  color: #ff5e79;
 }
 
 span {
@@ -139,30 +138,30 @@ span {
 }
 
 span:hover {
-  color: #ff0000;
+  color: #ff1e50;
 }
 
 small {
-  color: #999999;
-  margin-top: 5px;
+  color: #bbbbbb;
+  margin-top: 7px;
 }
 
 .historyList {
-  background-color: #4d4d4d;
-  color: #bda1a1;
+  background-color: #5c5c5c;
+  color: #f7d9d9;
 }
 
 .historyList.selected {
-  background-color: #4d1e1e;
-  color: #3f3e3e;
+  background-color: #5c1a1a;
+  color: #7e7e7e;
 }
 
 .clearButton {
-  background: #4d4d4d;
-  color: #e6e6e6;
+  background: #5c5c5c;
+  color: #ffffff;
   border: none;
-  padding: 10px 20px;
-  border-radius: 10px;
+  padding: 12px 25px;
+  border-radius: 12px;
   cursor: pointer;
   transform: scale(0.8);
   transition: background 0.3s, transform 0.3s;
@@ -170,17 +169,17 @@ small {
 
 .clearButton:hover {
   background: #333333;
-  transform: translateY(-3px);
+  transform: translateY(-2px);
 }
 
 .clearButton:active {
-  transform: translateY(1px);
+  transform: translateY(2px);
 }
 
 @media (max-width: 600px) {
   #app {
-      padding: 10px;
-      padding-top: 20px;
+      padding: 15px;
+      padding-top: 25px;
       max-width: 90%;
       margin: auto;
       margin-top: 20px;
@@ -188,7 +187,7 @@ small {
   }
 
   h1, h2 {
-      font-size: 1.5rem;
+      font-size: 1.8rem;
   }
 
   h2 {
@@ -200,7 +199,7 @@ small {
   }
 
   button {
-      width: 40%;
+      width: 45%;
       padding: 15px;
       margin-top: 5px;
       transform: scale(0.9);
@@ -220,16 +219,16 @@ small {
   }
 
   ul.scrollable::-webkit-scrollbar {
-      width: 8px;
+      width: 10px;
   }
 
   ul.scrollable::-webkit-scrollbar-thumb {
-      background: #e60000;
-      border-radius: 10px;
+      background: #ff5e79;
+      border-radius: 12px;
   }
 
   ul.scrollable::-webkit-scrollbar-thumb:hover {
-      background: #ff0000;
+      background: #ff1e50;
   }
 }
 
