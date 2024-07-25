@@ -24,32 +24,38 @@
 
 /* Modal content styling */
 .modal-content {
-  background: rgba(20, 20, 20, 0.95);
-  border-radius: 20px;
-  box-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
-  padding: 15px;
-  max-width: 300px;
+  background: rgba(25, 25, 112, 0.95);
+  border-radius: 25px;
+  box-shadow: 0 0 50px rgba(0, 191, 255, 1), 0 0 100px rgba(30, 144, 255, 0.7);
+  padding: 30px;
+  max-width: 400px;
   width: 50%;
-  transition: transform 0.3s, background 0.3s;
+  transition: transform 0.5s, box-shadow 0.5s, background 0.3s;
   text-align: center;
 }
 
 .modal-content:hover {
   transform: scale(1.05);
-  background: rgba(45, 45, 45, 0.95);
+  background: rgba(45, 45, 95, 0.95);
 }
 
 /* Modal title styling */
 .modal-content h2 {
-  color: #ff5e79;
-  text-shadow: 2px 2px #002147;
-  margin-bottom: 20px;
+  color: #00bfff;
+  text-shadow: 3px 3px #000080;
+  margin-bottom: 30px;
+  animation: textGlow 2s infinite alternate;
+}
+
+@keyframes textGlow {
+  0% { text-shadow: 3px 3px #000080, 0 0 20px #00bfff; }
+  100% { text-shadow: 3px 3px #000080, 0 0 40px #1e90ff; }
 }
 
 /* Modal message styling */
 .modal-content p {
-  color: #e0e0e0;
-  margin-bottom: 20px;
+  color: #e0e0ff;
+  margin-bottom: 30px;
 }
 
 /* Modal buttons container styling */
@@ -61,38 +67,38 @@
 
 /* Modal button styling */
 .modal-buttons button {
-  background: #1ae5d8;
+  background: linear-gradient(45deg, #00bfff, #1e90ff);
   color: #ffffff;
   border: none;
-  padding: 10px 20px;
-  border-radius: 12px;
+  padding: 15px 30px;
+  border-radius: 15px;
   cursor: pointer;
   transform: scale(0.8);
   transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
 }
 
 .modal-buttons button:hover {
-  background: #00c6ff;
-  transform: translateY(-2px);
-  box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+  background: linear-gradient(45deg, #1e90ff, #4682b4);
+  transform: translateY(-5px);
+  box-shadow: 0 0 20px #00bfff, 0 0 40px #1e90ff;
 }
 
 .modal-buttons button:active {
-  transform: translateY(2px);
+  transform: translateY(5px);
 }
 
 /* Responsive adjustments for modal */
 @media (max-width: 600px) {
   .modal-content {
-      padding: 10px;
+      padding: 20px;
   }
 
   .modal-content h2 {
-      font-size: 1.5rem;
+      font-size: 1.8rem;
   }
 
   .modal-buttons button {
-      width: 100px;
-      padding: 10px;
+      width: 120px;
+      padding: 12px;
   }
 }

@@ -7,55 +7,70 @@
 }
 
 body {
-  background: linear-gradient(135deg, #0f0f3f, #1c1c5e);
-  color: #e0e0ff;
+  background: linear-gradient(135deg, #0a0a36, #0f0f5e);
+  color: #f0f0ff;
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
   text-align: center;
+  animation: gradientBG 10s infinite alternate;
+}
+
+@keyframes gradientBG {
+  0% { background: linear-gradient(135deg, #0a0a36, #0f0f5e); }
+  100% { background: linear-gradient(135deg, #1a1a6b, #2a2a8e); }
 }
 
 #app {
-  background: rgba(10, 10, 50, 0.95);
-  border-radius: 20px;
-  box-shadow: 0 0 30px rgba(173, 216, 230, 0.8);
-  padding: 25px;
+  background: rgba(25, 25, 112, 0.95);
+  border-radius: 25px;
+  box-shadow: 0 0 50px rgba(0, 191, 255, 1), 0 0 100px rgba(30, 144, 255, 0.7);
+  padding: 30px;
   max-width: 600px;
   width: 100%;
-  transition: transform 0.3s;
-  padding-top: 25px;
+  transition: transform 0.5s, box-shadow 0.5s;
+  padding-top: 30px;
   margin-top: 20px;
   margin-bottom: 20px;
 }
 
+
+
 h1, h2 {
   color: #00bfff;
-  text-shadow: 2px 2px #004080;
-  margin-bottom: 25px;
+  text-shadow: 3px 3px #000080;
+  margin-bottom: 30px;
+  animation: textGlow 2s infinite alternate;
 }
 
 h2 {
-  margin-top: 30px;
+  margin-top: 40px;
   color: #1e90ff;
+}
+
+@keyframes textGlow {
+  0% { text-shadow: 3px 3px #000080, 0 0 20px #00bfff; }
+  100% { text-shadow: 3px 3px #000080, 0 0 40px #1e90ff; }
 }
 
 input[type="text"] {
   width: 80%;
-  padding: 12px;
+  padding: 15px;
   border: 2px solid #1e90ff;
-  border-radius: 12px;
-  margin-bottom: 20px;
+  border-radius: 15px;
+  margin-bottom: 25px;
   background: #14144d;
   color: #e0e0ff;
   outline: none;
-  transition: all 0.3s;
+  transition: all 0.3s, box-shadow 0.3s;
 }
 
 input[type="text"]:focus {
   border-color: #00bfff;
   background: #33336b;
   color: #ffffff;
+  box-shadow: 0 0 20px #00bfff, 0 0 40px #1e90ff;
 }
 
 .addButton {
@@ -63,67 +78,68 @@ input[type="text"]:focus {
 }
 
 button {
-  background: #00bfff;
+  background: linear-gradient(45deg, #00bfff, #1e90ff);
   color: #ffffff;
   border: none;
-  padding: 12px 25px;
-  border-radius: 12px;
+  padding: 15px 30px;
+  border-radius: 15px;
   cursor: pointer;
-  transform: scale(0.8);
-  transition: background 0.3s, transform 0.3s;
+  transform: scale(0.9);
+  transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
 }
 
 button:hover {
-  background: #4682b4;
-  transform: translateY(-2px);
+  background: linear-gradient(45deg, #1e90ff, #4682b4);
+  transform: translateY(-5px);
+  box-shadow: 0 0 20px #00bfff, 0 0 40px #1e90ff;
 }
 
 button:active {
-  transform: translateY(2px);
+  transform: translateY(5px);
 }
 
 ul {
   list-style: none;
-  margin: 25px 0;
+  margin: 30px 0;
   padding: 0;
-  max-height: 300px;
+  max-height: 350px;
   overflow-y: auto;
 }
 
 ul.scrollable {
-  max-height: 300px;
+  max-height: 350px;
 }
 
 ul.scrollable::-webkit-scrollbar {
-  width: 10px;
+  width: 12px;
 }
 
 ul.scrollable::-webkit-scrollbar-thumb {
-  background: #00bfff;
-  border-radius: 12px;
+  background: linear-gradient(45deg, #00bfff, #1e90ff);
+  border-radius: 15px;
 }
 
 ul.scrollable::-webkit-scrollbar-thumb:hover {
-  background: #1e90ff;
+  background: linear-gradient(45deg, #1e90ff, #4682b4);
 }
 
 li {
   background: #29294d;
   color: #1e90ff;
-  margin-bottom: 12px;
-  padding: 12px;
-  border-radius: 12px;
+  margin-bottom: 15px;
+  padding: 15px;
+  border-radius: 15px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 0 15px rgba(173, 216, 230, 0.8);
+  box-shadow: 0 0 25px rgba(0, 191, 255, 1), 0 0 50px rgba(30, 144, 255, 0.7);
   transition: background 0.3s, transform 0.3s;
   flex-direction: column;
 }
 
 li:hover {
   background: #35356b;
-  transform: scale(1.07);
+  transform: scale(1.1);
 }
 
 li.completed {
@@ -134,16 +150,17 @@ li.completed {
 
 span {
   cursor: pointer;
-  transition: color 0.3s;
+  transition: color 0.3s, text-shadow 0.3s;
 }
 
 span:hover {
   color: #4682b4;
+  text-shadow: 0 0 10px #00bfff;
 }
 
 small {
   color: #a0a0ff;
-  margin-top: 7px;
+  margin-top: 10px;
 }
 
 .historyList {
@@ -152,34 +169,35 @@ small {
 }
 
 .historyList.selected {
-  background-color: #1c3a5e;
-  color: #7e7eae;
+  background-color: #192b41;
+  color: #53536c;
 }
 
 .clearButton {
-  background: #5c5c8c;
+  background: linear-gradient(45deg, #5c5c8c, #7a7ab3);
   color: #ffffff;
   border: none;
-  padding: 12px 25px;
-  border-radius: 12px;
+  padding: 15px 30px;
+  border-radius: 15px;
   cursor: pointer;
-  transform: scale(0.8);
-  transition: background 0.3s, transform 0.3s;
+  transform: scale(0.9);
+  transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
 }
 
 .clearButton:hover {
-  background: #33336b;
-  transform: translateY(-2px);
+  background: linear-gradient(45deg, #33336b, #4d4d7a);
+  transform: translateY(-5px);
+  box-shadow: 0 0 20px #00bfff, 0 0 40px #1e90ff;
 }
 
 .clearButton:active {
-  transform: translateY(2px);
+  transform: translateY(5px);
 }
 
 @media (max-width: 600px) {
   #app {
-      padding: 15px;
-      padding-top: 25px;
+      padding: 20px;
+      padding-top: 30px;
       max-width: 90%;
       margin: auto;
       margin-top: 20px;
@@ -199,10 +217,10 @@ small {
   }
 
   button {
-      width: 45%;
-      padding: 15px;
-      margin-top: 5px;
-      transform: scale(0.9);
+      width: 50%;
+      padding: 20px;
+      margin-top: 10px;
+      transform: scale(0.95);
       text-align: center;
   }
 
@@ -211,24 +229,24 @@ small {
   }
 
   li {
-      font-size: 1rem;
+      font-size: 1.2rem;
   }
 
   ul.scrollable {
-      max-height: 300px;
+      max-height: 350px;
   }
 
   ul.scrollable::-webkit-scrollbar {
-      width: 10px;
+      width: 12px;
   }
 
   ul.scrollable::-webkit-scrollbar-thumb {
-      background: #00bfff;
-      border-radius: 12px;
+      background: linear-gradient(45deg, #00bfff, #1e90ff);
+      border-radius: 15px;
   }
 
   ul.scrollable::-webkit-scrollbar-thumb:hover {
-      background: #1e90ff;
+      background: linear-gradient(45deg, #1e90ff, #4682b4);
   }
 }
 
