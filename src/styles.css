@@ -7,8 +7,8 @@
 }
 
 body {
-  background: linear-gradient(135deg, #1c1c1c, #3e3e3e);
-  color: #f0f0f0;
+  background: linear-gradient(135deg, #0f0f3f, #1c1c5e);
+  color: #e0e0ff;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -17,9 +17,9 @@ body {
 }
 
 #app {
-  background: rgba(20, 20, 20, 0.95);
+  background: rgba(10, 10, 50, 0.95);
   border-radius: 20px;
-  box-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 30px rgba(173, 216, 230, 0.8);
   padding: 25px;
   max-width: 600px;
   width: 100%;
@@ -30,40 +30,40 @@ body {
 }
 
 h1, h2 {
-  color: #ff5e79;
-  text-shadow: 2px 2px #002147;
+  color: #00bfff;
+  text-shadow: 2px 2px #004080;
   margin-bottom: 25px;
 }
 
 h2 {
   margin-top: 30px;
-  color: #1ae5d8;
+  color: #1e90ff;
 }
 
 input[type="text"] {
   width: 80%;
   padding: 12px;
-  border: 2px solid #1ae5d8;
+  border: 2px solid #1e90ff;
   border-radius: 12px;
   margin-bottom: 20px;
-  background: #141414;
-  color: #e0e0e0;
+  background: #14144d;
+  color: #e0e0ff;
   outline: none;
   transition: all 0.3s;
 }
 
 input[type="text"]:focus {
-  border-color: #ff5e79;
-  background: #333333;
+  border-color: #00bfff;
+  background: #33336b;
   color: #ffffff;
 }
 
 .addButton {
-  background: #1ae5d8;
+  background: #1e90ff;
 }
 
 button {
-  background: #ff5e79;
+  background: #00bfff;
   color: #ffffff;
   border: none;
   padding: 12px 25px;
@@ -74,7 +74,7 @@ button {
 }
 
 button:hover {
-  background: #00c6ff;
+  background: #4682b4;
   transform: translateY(-2px);
 }
 
@@ -99,37 +99,37 @@ ul.scrollable::-webkit-scrollbar {
 }
 
 ul.scrollable::-webkit-scrollbar-thumb {
-  background: #ff5e79;
+  background: #00bfff;
   border-radius: 12px;
 }
 
 ul.scrollable::-webkit-scrollbar-thumb:hover {
-  background: #ff1e50;
+  background: #1e90ff;
 }
 
 li {
-  background: #292929;
-  color: #1ae5d8;
+  background: #29294d;
+  color: #1e90ff;
   margin-bottom: 12px;
   padding: 12px;
   border-radius: 12px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 15px rgba(173, 216, 230, 0.8);
   transition: background 0.3s, transform 0.3s;
   flex-direction: column;
 }
 
 li:hover {
-  background: #353535;
+  background: #35356b;
   transform: scale(1.07);
 }
 
 li.completed {
   text-decoration: line-through;
   background: #1a3e5c;
-  color: #ff5e79;
+  color: #00bfff;
 }
 
 span {
@@ -138,26 +138,26 @@ span {
 }
 
 span:hover {
-  color: #ff1e50;
+  color: #4682b4;
 }
 
 small {
-  color: #bbbbbb;
+  color: #a0a0ff;
   margin-top: 7px;
 }
 
 .historyList {
-  background-color: #5c5c5c;
-  color: #f7d9d9;
+  background-color: #5c5c8c;
+  color: #b0d9ff;
 }
 
 .historyList.selected {
-  background-color: #5c1a1a;
-  color: #7e7e7e;
+  background-color: #1c3a5e;
+  color: #7e7eae;
 }
 
 .clearButton {
-  background: #5c5c5c;
+  background: #5c5c8c;
   color: #ffffff;
   border: none;
   padding: 12px 25px;
@@ -168,7 +168,7 @@ small {
 }
 
 .clearButton:hover {
-  background: #333333;
+  background: #33336b;
   transform: translateY(-2px);
 }
 
@@ -223,12 +223,12 @@ small {
   }
 
   ul.scrollable::-webkit-scrollbar-thumb {
-      background: #ff5e79;
+      background: #00bfff;
       border-radius: 12px;
   }
 
   ul.scrollable::-webkit-scrollbar-thumb:hover {
-      background: #ff1e50;
+      background: #1e90ff;
   }
 }
 
