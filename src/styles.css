@@ -90,7 +90,6 @@ button {
 
 button:hover {
   background: linear-gradient(45deg, #1e90ff, #4682b4);
-  transform: translateY(-5px);
   box-shadow: 0 0 20px #00bfff, 0 0 40px #1e90ff;
 }
 
@@ -104,6 +103,7 @@ ul {
   padding: 0;
   max-height: 350px;
   overflow-y: auto;
+  border-radius: 15px;
 }
 
 ul.scrollable {
@@ -139,7 +139,6 @@ li {
 
 li:hover {
   background: #35356b;
-  transform: scale(1.1);
 }
 
 li.completed {
@@ -195,6 +194,7 @@ small {
 }
 
 @media (max-width: 600px) {
+
   #app {
       padding: 20px;
       padding-top: 30px;
