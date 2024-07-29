@@ -1,4 +1,4 @@
-# 2do List
+# wo2do
 Keep track of what needs doing and what got done with this simple todo list application built with React. The application allows users to add and remove from list with timestamps of when a task is added and when it is done. It also keeps a history of removed tasks and persists data using local storage.
 
 ## Features

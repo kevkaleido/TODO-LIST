@@ -64,7 +64,7 @@ const App = () => {
 
   return (
     <div id="app">
-      <h1>2doList</h1>
+      <h1>wo2do</h1>
       <TodoList todos={todos} addTodo={addTodo} removeTodo={removeTodo} toggleComplete={toggleComplete} />
       <h2>History</h2>
       <HistoryList history={history} clearSelectedHistory={clearSelectedHistory} />
