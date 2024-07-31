@@ -79,8 +79,8 @@ const App = () => {
           {showSignIn && <SignIn />}
           {showLogin && <Login />}
           {!showSignIn && !showLogin && (
-            <div className="home-buttons">
-              <button onClick={showSignInForm}>SignIn</button>
+            <div>
+              <button onClick={showSignInForm}>Sign In</button>
               <button onClick={showLoginForm}>Login</button>
             </div>
           )}

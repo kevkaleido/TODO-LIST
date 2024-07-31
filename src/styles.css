@@ -271,16 +271,8 @@ button {
   color: white;
   border: none;
   cursor: pointer;
-
 }
 
 button:hover {
   background-color: #0056b3;
-}
-
-.home-buttons{
-  display: flex;
-  justify-content: center;
-  gap: 30px;
-  padding: 20px;
 }
