@@ -8,30 +8,42 @@ const TodoList = ({ userId }) => {
   const [newTodo, setNewTodo] = useState('');
   const [showModal, setShowModal] = useState(false);
   const [todoToRemove, setTodoToRemove] = useState(null);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     if (userId) {
       const q = query(collection(db, 'todos'), where('userId', '==', userId));
-      const unsubscribe = onSnapshot(q, (querySnapshot) => {
-        const todosData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-        // Sort todosData by timestamp in descending order
-        todosData.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
-        setTodos(todosData);
-      });
+      const unsubscribe = onSnapshot(q, 
+        (querySnapshot) => {
+          const todosData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+          todosData.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+          setTodos(todosData);
+        },
+        (error) => {
+          console.error("Error fetching todos:", error);
+          setError("Failed to fetch todos. Please check your connection and try again.");
+        }
+      );
       return () => unsubscribe();
     }
   }, [userId]);
 
   const handleAddTodo = async () => {
     if (newTodo.trim() !== '' && !todos.some(todo => todo.text === newTodo.trim())) {
-      const timestamp = new Date().toISOString();
-      await addDoc(collection(db, 'todos'), {
-        text: newTodo.trim(),
-        completed: false,
-        timestamp,
-        userId
-      });
-      setNewTodo('');
+      try {
+        const timestamp = new Date().toISOString();
+        await addDoc(collection(db, 'todos'), {
+          text: newTodo.trim(),
+          completed: false,
+          timestamp,
+          userId
+        });
+        setNewTodo('');
+        setError(null);
+      } catch (error) {
+        console.error("Error adding todo:", error);
+        setError("Failed to add todo. Please try again.");
+      }
     }
   };
 
@@ -48,18 +60,42 @@ const TodoList = ({ userId }) => {
 
   const handleConfirmRemove = async () => {
     if (todoToRemove) {
-      await deleteDoc(doc(db, 'todos', todoToRemove));
-      setTodoToRemove(null);
-      setShowModal(false);
+      try {
+        const todoToMove = todos.find(todo => todo.id === todoToRemove);
+        if (todoToMove) {
+          // Remove from todos
+          await deleteDoc(doc(db, 'todos', todoToRemove));
+          
+          // Add to history
+          await addDoc(collection(db, 'history'), {
+            text: todoToMove.text,
+            timestamp: new Date().toISOString(),
+            userId
+          });
+        }
+        setTodoToRemove(null);
+        setShowModal(false);
+        setError(null);
+      } catch (error) {
+        console.error("Error removing todo:", error);
+        setError("Failed to remove todo. Please try again.");
+      }
     }
   };
 
   const toggleComplete = async (id, completed) => {
-    await updateDoc(doc(db, 'todos', id), { completed: !completed });
+    try {
+      await updateDoc(doc(db, 'todos', id), { completed: !completed });
+      setError(null);
+    } catch (error) {
+      console.error("Error updating todo:", error);
+      setError("Failed to update todo. Please try again.");
+    }
   };
 
   return (
     <div>
+      {error && <div className="error">{error}</div>}
       <input
         type="text"
         value={newTodo}
@@ -91,7 +127,7 @@ const TodoList = ({ userId }) => {
       <Modal
         show={showModal}
         title="Confirm Remove"
-        message="Sure you want to remove this task?"
+        message="Are you sure you want to remove this task? It will be moved to the history."
         onConfirm={handleConfirmRemove}
         onClose={() => setShowModal(false)}
       />
