@@ -1,0 +1,18 @@
+.hamburger {
+    cursor: pointer;
+    font-size: 24px;
+  }
+  
+  .menu {
+    display: none;
+  }
+  
+  .menu.open {
+    display: block;
+  }
+  
+  .menu div {
+    margin: 10px 0;
+    cursor: pointer;
+  }
+  

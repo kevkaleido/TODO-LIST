@@ -1,47 +1,78 @@
-// src/components/TodoList.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { db } from '../firebase';
+import { collection, addDoc, getDocs, updateDoc, deleteDoc, doc } from 'firebase/firestore';
 import Modal from './Modal';
 
-/**
- * TodoList Component
- * @param {Array} todos - List of todo items
- * @param {function} addTodo - Function to add a new todo
- * @param {function} removeTodo - Function to remove a todo
- * @param {function} toggleComplete - Function to toggle completion status of a todo
- */
-const TodoList = ({ todos, addTodo, removeTodo, toggleComplete }) => {
-  const [newTodo, setNewTodo] = useState(''); // State for new todo input
-  const [showModal, setShowModal] = useState(false); // State to show/hide modal
-  const [todoToRemove, setTodoToRemove] = useState(null); // State to keep track of the todo to be removed
+const TodoList = ({ user }) => {
+  const [todos, setTodos] = useState([]);
+  const [newTodo, setNewTodo] = useState('');
+  const [showModal, setShowModal] = useState(false);
+  const [todoToRemove, setTodoToRemove] = useState(null);
 
-  // Add a new todo item if it's not empty and not a duplicate
-  const handleAddTodo = () => {
-    if (newTodo.trim() !== '' && !todos.some(todo => todo.text === newTodo.trim())) {
-      addTodo(newTodo.trim());
-      setNewTodo(''); // Clear input after adding
+  // Fetch todos from Firestore when the component mounts or the user changes
+  useEffect(() => {
+    if (user) {
+      const fetchTodos = async () => {
+        try {
+          const querySnapshot = await getDocs(collection(db, 'todos'));
+          const todosList = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+          setTodos(todosList);
+        } catch (error) {
+          console.error('Error fetching todos:', error);
+        }
+      };
+      fetchTodos();
+    }
+  }, [user]);
+
+  // Handle adding a new todo
+  const handleAddTodo = async () => {
+    console.log('Adding todo:', newTodo); // Debug log
+    if (newTodo.trim() !== '') {
+      try {
+        const docRef = await addDoc(collection(db, 'todos'), { text: newTodo, completed: false });
+        console.log('Todo added with ID:', docRef.id); // Debug log
+        setTodos([...todos, { id: docRef.id, text: newTodo, completed: false }]);
+        setNewTodo('');
+      } catch (error) {
+        console.error('Error adding todo:', error); // Debug log
+      }
+    } else {
+      console.warn('Todo text is empty'); // Debug log
     }
   };
 
-  // Handle pressing Enter key to add a new todo item
-  const handleKeyPress = (e) => {
-    if (e.key === 'Enter') {
-      handleAddTodo();
+  // Toggle the completion status of a todo
+  const toggleComplete = async (id) => {
+    const todo = todos.find(todo => todo.id === id);
+    try {
+      await updateDoc(doc(db, 'todos', id), { completed: !todo.completed });
+      setTodos(todos.map(todo => todo.id === id ? { ...todo, completed: !todo.completed } : todo));
+    } catch (error) {
+      console.error('Error updating todo:', error); // Debug log
     }
   };
 
-  // Show confirmation modal before removing a todo
-  const confirmRemoveTodo = (index) => {
-    setTodoToRemove(index);
+  // Confirm removal of a todo
+  const confirmRemoveTodo = (id) => {
+    setTodoToRemove(id);
     setShowModal(true);
   };
 
-  // Handle confirmed removal of a todo item
-  const handleConfirmRemove = () => {
-    if (todoToRemove !== null) {
-      removeTodo(todoToRemove);
-      setTodoToRemove(null);
+  // Handle confirmed removal of a todo
+  const handleConfirmRemove = async () => {
+    try {
+      await deleteDoc(doc(db, 'todos', todoToRemove));
+      setTodos(todos.filter(todo => todo.id !== todoToRemove));
       setShowModal(false);
+    } catch (error) {
+      console.error('Error removing todo:', error); // Debug log
     }
+  };
+
+  // Handle input change
+  const handleInputChange = (e) => {
+    setNewTodo(e.target.value);
   };
 
   return (
@@ -49,33 +80,18 @@ const TodoList = ({ todos, addTodo, removeTodo, toggleComplete }) => {
       <input
         type="text"
         value={newTodo}
-        onChange={(e) => setNewTodo(e.target.value)}
-        onKeyPress={handleKeyPress}
+        onChange={handleInputChange}
         placeholder="Add a new todo"
       />
-      <button className="addButton"onClick={handleAddTodo}>Add</button>
-
-      <ul className={todos.length > 2 ? 'scrollable' : ''}>
-        {todos.map((todo, index) => (
-          <li 
-            key={index}
-            className={todo.completed ? 'completed' : ''} // Apply 'completed' class if the todo is done
-            onClick={() => toggleComplete(index)} // Toggle completion on click
-          >
-            <span>
-              {todo.text}
-            </span>
-            <button className="to-doButton" onClick={(e) => {
-              e.stopPropagation(); // Prevent toggling complete when clicking remove button
-              confirmRemoveTodo(index);
-            }}>
-              X
-            </button>
-            <span>{todo.timestamp}</span>
+      <button onClick={handleAddTodo}>Add</button>
+      <ul>
+        {todos.map((todo) => (
+          <li key={todo.id} className={todo.completed ? 'completed' : ''} onClick={() => toggleComplete(todo.id)}>
+            {todo.text}
+            <button onClick={(e) => { e.stopPropagation(); confirmRemoveTodo(todo.id); }}>X</button>
           </li>
         ))}
       </ul>
-
       <Modal
         show={showModal}
         title="Confirm Remove"
