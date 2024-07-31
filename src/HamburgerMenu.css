@@ -1,19 +1,52 @@
+/* Hamburger menu styling */
 .hamburger {
-  margin-left: auto;
-    cursor: pointer;
-    font-size: 24px;
+  cursor: pointer;
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #00bfff;
+  transition: transform 0.3s, color 0.3s;
+}
+
+.hamburger:hover {
+  transform: scale(1.1);
+  color: #1e90ff;
+}
+
+.menu {
+  display: none;
+  padding: 20px;
+  transition: opacity 0.3s;
+}
+
+.menu.open {
+  display: block;
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.menu div {
+  margin: 15px 0;
+  cursor: pointer;
+  color: #e0e0ff;
+  transition: color 0.3s, transform 0.3s;
+}
+
+.menu div:hover {
+  color: #00bfff;
+  transform: translateX(5px);
+}
+
+/* Responsive adjustments for hamburger menu */
+@media (max-width: 600px) {
+  .hamburger {
+    font-size: 20px;
   }
-  
-  .menu {
-    display: none;
-  }
-  
-  .menu.open {
-    display: block;
-  }
-  
+
   .menu div {
-    margin: 10px 0;
-    cursor: pointer;
+    margin: 12px 0;
   }
-  
+}
