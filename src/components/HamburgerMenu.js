@@ -63,7 +63,7 @@ const HamburgerMenu = ({ isAuthenticated, onLogout, onClearAllTodos, onClearAllH
           </>
         ) : (
           <>
-            <div onClick={onShowSignIn}>Sign In</div>
+            <div onClick={onShowSignIn}>SignIn</div>
             <div onClick={onShowLogin}>Login</div>
           </>
         )}
