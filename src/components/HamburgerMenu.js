@@ -5,7 +5,11 @@ import '../HamburgerMenu.css';
 const HamburgerMenu = ({ isAuthenticated, onLogout, onClearAllTodos, onClearAllHistory, onShowSignIn, onShowLogin }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [modalContent, setModalContent] = useState({ title: '', message: '', onConfirm: null });
+  const [modalContent, setModalContent] = useState({
+    title: '',
+    message: '',
+    onConfirm: () => {} // Initialize with an empty function instead of null
+  });
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
