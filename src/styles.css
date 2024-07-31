@@ -276,3 +276,15 @@ button {
 button:hover {
   background-color: #0056b3;
 }
+
+.home-buttons{
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  padding: 20px;
+}
+
+.SignIn-button, .Login-button{
+  margin: auto;
+
+}
