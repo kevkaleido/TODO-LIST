@@ -14,6 +14,8 @@ const TodoList = ({ userId }) => {
       const q = query(collection(db, 'todos'), where('userId', '==', userId));
       const unsubscribe = onSnapshot(q, (querySnapshot) => {
         const todosData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        // Sort todosData by timestamp in descending order
+        todosData.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
         setTodos(todosData);
       });
       return () => unsubscribe();
