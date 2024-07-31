@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
-import { auth } from './firebase';
+import { collection, query, where, getDocs, deleteDoc } from 'firebase/firestore';
+import { auth, db } from './firebase';
 import TodoList from './components/TodoList';
 import HistoryList from './components/HistoryList';
 import SignIn from './components/SignIn';
 import Login from './components/Login';
+import HamburgerMenu from './components/HamburgerMenu';
 import './styles.css';
 
 const App = () => {
   const [user, setUser] = useState(null);
-  const [showMenu, setShowMenu] = useState(false);
   const [showSignIn, setShowSignIn] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
 
@@ -30,32 +31,61 @@ const App = () => {
     }
   };
 
-  const toggleMenu = () => {
-    setShowMenu(!showMenu);
+  const clearAllTodos = async () => {
+    if (user) {
+      const q = query(collection(db, 'todos'), where('userId', '==', user.uid));
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((doc) => {
+        deleteDoc(doc.ref);
+      });
+    }
+  };
+
+  const clearAllHistory = async () => {
+    if (user) {
+      const q = query(collection(db, 'history'), where('userId', '==', user.uid));
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((doc) => {
+        deleteDoc(doc.ref);
+      });
+    }
+  };
+
+  const showSignInForm = () => {
+    setShowSignIn(true);
+    setShowLogin(false);
+  };
+
+  const showLoginForm = () => {
+    setShowLogin(true);
+    setShowSignIn(false);
   };
 
   return (
     <div id="app">
-      <div className="hamburger-menu" onClick={toggleMenu}>
-        &#9776; {/* Hamburger icon */}
-      </div>
-      {showMenu && (
-        <div className="menu">
-          {user ? (
-            <button onClick={handleLogout}>Logout</button>
-          ) : (
-            <>
-              <button onClick={() => { setShowSignIn(true); setShowLogin(false); setShowMenu(false); }}>Sign In</button>
-              <button onClick={() => { setShowLogin(true); setShowSignIn(false); setShowMenu(false); }}>Login</button>
-            </>
-          )}
-        </div>
-      )}
+      <HamburgerMenu 
+        isAuthenticated={!!user} 
+        onLogout={handleLogout}
+        onClearAllTodos={clearAllTodos}
+        onClearAllHistory={clearAllHistory}
+        onShowSignIn={showSignInForm}
+        onShowLogin={showLoginForm}
+      />
 
       <h1>wo2do</h1>
 
-      {showSignIn && !user && <SignIn />}
-      {showLogin && !user && <Login />}
+      {!user && (
+        <>
+          {showSignIn && <SignIn />}
+          {showLogin && <Login />}
+          {!showSignIn && !showLogin && (
+            <div>
+              <button onClick={showSignInForm}>Sign In</button>
+              <button onClick={showLoginForm}>Login</button>
+            </div>
+          )}
+        </>
+      )}
 
       {user && (
         <>
