@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { auth } from '../firebase';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../firebase';
 
 const SignIn = () => {
   const [email, setEmail] = useState('');
@@ -9,33 +9,32 @@ const SignIn = () => {
 
   const handleSignIn = async (e) => {
     e.preventDefault();
-    setError(null);
     try {
       await createUserWithEmailAndPassword(auth, email, password);
+      // Sign-in successful, you can add additional logic here if needed
     } catch (error) {
       setError(error.message);
-      console.error("Error signing in: ", error);
     }
   };
 
   return (
     <form onSubmit={handleSignIn}>
-      <input 
-        type="email" 
-        value={email} 
-        onChange={(e) => setEmail(e.target.value)} 
-        placeholder="Email" 
-        required 
+      <input
+        type="email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        placeholder="Email"
+        required
       />
-      <input 
-        type="password" 
-        value={password} 
-        onChange={(e) => setPassword(e.target.value)} 
-        placeholder="Password" 
-        required 
+      <input
+        type="password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        placeholder="Password"
+        required
       />
-      <button type="submit">Sign Up</button>
-      {error && <p className="error">{error}</p>}
+      <button type="submit">Sign In</button>
+      {error && <p>{error}</p>}
     </form>
   );
 };

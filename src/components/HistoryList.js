@@ -1,51 +1,58 @@
-// src/components/HistoryList.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { collection, deleteDoc, doc, onSnapshot, query, where } from 'firebase/firestore';
+import { db } from '../firebase';
 import Modal from './Modal';
 
-/**
- * HistoryList Component
- * @param {Array} history - List of history items
- * @param {function} clearSelectedHistory - Function to clear the selected history items
- */
-const HistoryList = ({ history, clearSelectedHistory }) => {
+const HistoryList = ({ userId }) => {
+  const [history, setHistory] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [selectedItems, setSelectedItems] = useState([]);
 
-  // Show confirmation modal with selected items
+  useEffect(() => {
+    if (userId) {
+      const q = query(collection(db, 'history'), where('userId', '==', userId));
+      const unsubscribe = onSnapshot(q, (querySnapshot) => {
+        const historyData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        setHistory(historyData);
+      });
+      return () => unsubscribe();
+    }
+  }, [userId]);
+
   const handleClearHistory = () => {
     if (selectedItems.length > 0) {
       setShowModal(true);
     }
   };
 
-  // Handle confirmed clearing of the selected history items
-  const handleConfirmClear = () => {
-    clearSelectedHistory(selectedItems);
+  const handleConfirmClear = async () => {
+    for (const id of selectedItems) {
+      await deleteDoc(doc(db, 'history', id));
+    }
     setShowModal(false);
     setSelectedItems([]);
   };
 
-  // Toggle selection of a history item
-  const toggleSelection = (index) => {
+  const toggleSelection = (id) => {
     setSelectedItems((prevSelectedItems) =>
-      prevSelectedItems.includes(index)
-        ? prevSelectedItems.filter((item) => item !== index)
-        : [...prevSelectedItems, index]
+      prevSelectedItems.includes(id)
+        ? prevSelectedItems.filter((item) => item !== id)
+        : [...prevSelectedItems, id]
     );
   };
 
   return (
     <div>
       <ul className={history.length > 3 ? 'scrollable' : ''}>
-        {history.map((item, index) => (
+        {history.map((item) => (
           <li
-            className={`historyList ${selectedItems.includes(index) ? 'selected' : ''}`}
-            key={index}
-            onClick={() => toggleSelection(index)}
+            className={`historyList ${selectedItems.includes(item.id) ? 'selected' : ''}`}
+            key={item.id}
+            onClick={() => toggleSelection(item.id)}
           >
             {item.text}
             <br />
-            <small>{item.timestamp}</small>
+            <small>{new Date(item.timestamp).toLocaleString()}</small>
           </li>
         ))}
       </ul>
