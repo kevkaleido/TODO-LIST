@@ -134,6 +134,11 @@ const TodoList = ({ userId }) => {
     return () => document.removeEventListener('click', closeDropdown);
   }, []);
 
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return `${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')} ${date.getDate().toString().padStart(2, '0')}/${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getFullYear().toString().slice(-2)}`;
+  };
+
   return (
     <div>
       {error && <div className="error">{error}</div>}
@@ -194,7 +199,7 @@ const TodoList = ({ userId }) => {
                     </div>
                   )}
                 </div>
-                <span className="timestamp">{new Date(todo.timestamp).toLocaleString()}</span>
+                <span className="timestamp">{formatDate(todo.timestamp)}</span>
               </>
             )}
           </li>

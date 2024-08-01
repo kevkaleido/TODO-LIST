@@ -27,7 +27,11 @@ const HistoryList = ({ userId }) => {
         },
         (error) => {
           console.error("Error fetching history:", error);
-          setError("Failed to fetch history. Please check your connection and try again.");
+          if (error.code === 'failed-precondition') {
+            setError("This query requires an index. Please check the console for the link to create it.");
+          } else {
+            setError("Failed to fetch history. Please check your connection and try again.");
+          }
         }
       );
       return () => unsubscribe();
@@ -62,6 +66,11 @@ const HistoryList = ({ userId }) => {
     );
   };
 
+  const formatDate = (date) => {
+    if (!(date instanceof Date)) return 'Processing...';
+    return `${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')} ${date.getDate().toString().padStart(2, '0')}/${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getFullYear().toString().slice(-2)}`;
+  };
+
   return (
     <div>
       {error && <div className="error">{error}</div>}
@@ -74,11 +83,7 @@ const HistoryList = ({ userId }) => {
           >
             {item.text}
             <br />
-            <small>
-              {item.removedAt instanceof Date 
-                ? item.removedAt.toLocaleString()
-                : 'Processing...'}
-            </small>
+            <small>{formatDate(item.removedAt)}</small>
           </li>
         ))}
       </ul>
