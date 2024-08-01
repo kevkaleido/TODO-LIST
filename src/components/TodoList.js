@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { collection, addDoc, deleteDoc, doc, updateDoc, onSnapshot, query, where } from 'firebase/firestore';
+import { collection, addDoc, deleteDoc, doc, updateDoc, onSnapshot, query, where, serverTimestamp } from 'firebase/firestore';
 import { db } from '../firebase';
 import Modal from './Modal';
 
@@ -9,6 +9,9 @@ const TodoList = ({ userId }) => {
   const [showModal, setShowModal] = useState(false);
   const [todoToRemove, setTodoToRemove] = useState(null);
   const [error, setError] = useState(null);
+  const [editingTodo, setEditingTodo] = useState(null);
+  const [editText, setEditText] = useState('');
+  const [openDropdown, setOpenDropdown] = useState(null);
 
   useEffect(() => {
     if (userId) {
@@ -66,10 +69,10 @@ const TodoList = ({ userId }) => {
           // Remove from todos
           await deleteDoc(doc(db, 'todos', todoToRemove));
           
-          // Add to history
+          // Add to history with server timestamp
           await addDoc(collection(db, 'history'), {
             text: todoToMove.text,
-            timestamp: new Date().toISOString(),
+            removedAt: serverTimestamp(),
             userId
           });
         }
@@ -93,6 +96,44 @@ const TodoList = ({ userId }) => {
     }
   };
 
+  const handleEditTodo = async (id, newText) => {
+    if (newText.trim() !== '') {
+      try {
+        await updateDoc(doc(db, 'todos', id), { text: newText.trim() });
+        setEditingTodo(null);
+        setEditText('');
+        setError(null);
+      } catch (error) {
+        console.error("Error editing todo:", error);
+        setError("Failed to edit todo. Please try again.");
+      }
+    }
+  };
+
+  const handleMenuAction = (action, todo) => {
+    if (action === 'edit') {
+      setEditingTodo(todo.id);
+      setEditText(todo.text);
+    } else if (action === 'remove') {
+      confirmRemoveTodo(todo.id);
+    }
+  };
+
+  const toggleDropdown = (todoId, e) => {
+    e.stopPropagation();
+    setOpenDropdown(openDropdown === todoId ? null : todoId);
+  };
+
+  useEffect(() => {
+    const closeDropdown = (e) => {
+      if (!e.target.closest('.dropdown')) {
+        setOpenDropdown(null);
+      }
+    };
+    document.addEventListener('click', closeDropdown);
+    return () => document.removeEventListener('click', closeDropdown);
+  }, []);
+
   return (
     <div>
       {error && <div className="error">{error}</div>}
@@ -109,17 +150,53 @@ const TodoList = ({ userId }) => {
         {todos.map((todo) => (
           <li 
             key={todo.id}
-            className={todo.completed ? 'completed' : ''}
+            className={`todo-item ${todo.completed ? 'completed' : ''}`}
             onClick={() => toggleComplete(todo.id, todo.completed)}
           >
-            <span>{todo.text}</span>
-            <button className="to-doButton" onClick={(e) => {
-              e.stopPropagation();
-              confirmRemoveTodo(todo.id);
-            }}>
-              X
-            </button>
-            <span>{new Date(todo.timestamp).toLocaleString()}</span>
+            {editingTodo === todo.id ? (
+              <input
+                type="text"
+                value={editText}
+                onChange={(e) => setEditText(e.target.value)}
+                onBlur={() => handleEditTodo(todo.id, editText)}
+                onKeyPress={(e) => {
+                  if (e.key === 'Enter') {
+                    handleEditTodo(todo.id, editText);
+                  }
+                }}
+                onClick={(e) => e.stopPropagation()}
+                autoFocus
+              />
+            ) : (
+              <>
+                <span>{todo.text}</span>
+                <div className="dropdown">
+                  <button 
+                    className="dropbtn" 
+                    onClick={(e) => toggleDropdown(todo.id, e)}
+                  >
+                    ⋮
+                  </button>
+                  {openDropdown === todo.id && (
+                    <div className="dropdown-content">
+                      <a href="#" onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        handleMenuAction('edit', todo);
+                        setOpenDropdown(null);
+                      }}>Edit</a>
+                      <a href="#" onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        handleMenuAction('remove', todo);
+                        setOpenDropdown(null);
+                      }}>Remove</a>
+                    </div>
+                  )}
+                </div>
+                <span className="timestamp">{new Date(todo.timestamp).toLocaleString()}</span>
+              </>
+            )}
           </li>
         ))}
       </ul>

@@ -267,13 +267,7 @@ input {
   font-size: 16px;
 }
 
-button {
-  /* padding: 10px;
-  background-color: #007BFF;
-  color: white;
-  border: none;
-  cursor: pointer; */
-}
+
 
 button:hover {
   background-color: #0056b3;
@@ -290,3 +284,78 @@ button:hover {
   margin: auto;
 
 }
+
+/* Dropdown Button */
+.dropbtn {
+  background-color: transparent;
+  color: #333;
+  padding: 10px;
+  font-size: 24px; /* Larger font size for the ellipsis */
+  border: none;
+  cursor: pointer;
+  text-align: center;
+}
+
+/* Dropdown container */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown Content */
+.dropdown-content {
+  position: absolute;
+  right: 0;
+  background: rgba(25, 25, 112, 0.95);
+  min-width: 150px;
+  box-shadow: 0 0 50px rgba(0, 191, 255, 0.5), 0 0 100px rgba(30, 144, 255, 0.3);
+  z-index: 1;
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: #e0e0ff;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  transition: background 0.3s, transform 0.3s;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {
+  background:linear-gradient(45deg, #1e90ff, #4682b4);
+  
+}
+/* Todo item styling */
+.todo-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.todo-item span {
+  flex-grow: 1;
+  margin-right: 10px;
+}
+
+/* Ensure the dropdown doesn't push other elements */
+.todo-item .dropdown {
+  margin-left: auto;
+}
+
+/* Style for the timestamp */
+.timestamp {
+  font-size: 0.8em;
+  color: #888;
+  margin-left: 10px;
+}
+
+/* Style for completed todos */
+.todo-item.completed span {
+  text-decoration: line-through;
+  color: #888;
+}
+
