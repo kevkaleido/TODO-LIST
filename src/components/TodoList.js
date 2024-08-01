@@ -184,18 +184,18 @@ const TodoList = ({ userId }) => {
                   </button>
                   {openDropdown === todo.id && (
                     <div className="dropdown-content">
-                      <a href="#" onClick={(e) => {
+                      <button onClick={(e) => {
                         e.preventDefault();
                         e.stopPropagation();
                         handleMenuAction('edit', todo);
                         setOpenDropdown(null);
-                      }}>Edit</a>
-                      <a href="#" onClick={(e) => {
+                      }}>Edit</button>
+                      <button onClick={(e) => {
                         e.preventDefault();
                         e.stopPropagation();
                         handleMenuAction('remove', todo);
                         setOpenDropdown(null);
-                      }}>Remove</a>
+                      }}>Remove</button>
                     </div>
                   )}
                 </div>
