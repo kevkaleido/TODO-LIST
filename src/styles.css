@@ -386,9 +386,9 @@ button:hover {
 .hamburger-line {
   width: 24px;
   height: 3px;
-  background-color: #333;
+  background-color: #173a61;
   transition: all 0.3s linear;
 }
 .hamburger-menu:hover .hamburger-line {
-  background-color: #555;
+  background-color: #2d75e1;
 }
