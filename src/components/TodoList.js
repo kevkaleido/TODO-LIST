@@ -176,12 +176,14 @@ const TodoList = ({ userId }) => {
               <>
                 <span>{todo.text}</span>
                 <div className="dropdown">
-                  <button 
-                    className="dropbtn" 
-                    onClick={(e) => toggleDropdown(todo.id, e)}
-                  >
-                    ⋮
-                  </button>
+                <div 
+  className="hamburger-menu"
+  onClick={(e) => toggleDropdown(todo.id, e)}
+>
+  <div className="hamburger-line"></div>
+  <div className="hamburger-line"></div>
+  <div className="hamburger-line"></div>
+</div>
                   {openDropdown === todo.id && (
                     <div className="dropdown-content">
                       <button onClick={(e) => {
