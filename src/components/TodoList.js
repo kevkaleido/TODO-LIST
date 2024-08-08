@@ -170,7 +170,7 @@ const TodoList = ({ userId }) => {
         value={newTodo}
         onChange={(e) => setNewTodo(e.target.value)}
         onKeyPress={handleKeyPress}
-        placeholder="Add a new todo (include a URL for a link)"
+        placeholder="Add a new todo"
       />
       <button className="addButton" onClick={handleAddTodo}>Add</button>
 
