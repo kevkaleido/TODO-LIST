@@ -71,6 +71,20 @@ const HistoryList = ({ userId }) => {
     return `${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')} ${date.getDate().toString().padStart(2, '0')}/${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getFullYear().toString().slice(-2)}`;
   };
 
+  const renderLink = (link) => {
+    if (!link) return null;
+    return (
+      <a 
+        href={link} 
+        target="_blank" 
+        rel="noopener noreferrer" 
+        onClick={(e) => e.stopPropagation()}
+      >
+        Link
+      </a>
+    );
+  };
+
   return (
     <div>
       {error && <div className="error">{error}</div>}
@@ -82,6 +96,12 @@ const HistoryList = ({ userId }) => {
             onClick={() => toggleSelection(item.id)}
           >
             {item.text}
+            {item.link && (
+              <>
+                <br />
+                {renderLink(item.link)}
+              </>
+            )}
             <br />
             <small>{formatDate(item.removedAt)}</small>
           </li>
