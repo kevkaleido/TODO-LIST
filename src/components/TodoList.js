@@ -90,6 +90,7 @@ const TodoList = ({ userId }) => {
           // Add to history with server timestamp
           await addDoc(collection(db, 'history'), {
             text: todoToMove.text,
+            link: todoToMove.link,
             removedAt: serverTimestamp(),
             userId
           });
