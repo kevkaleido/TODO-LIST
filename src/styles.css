@@ -158,6 +158,28 @@ span:hover {
   text-shadow: 0 0 10px #00bfff;
 }
 
+a {
+  color: #00bfff;
+  text-decoration: none;
+  padding: 5px 10px;
+  border-radius: 10px;
+  background: rgba(30, 144, 255, 0.2);
+  transition: all 0.3s ease;
+  margin-top: 10px;
+  display: inline-block;
+}
+
+a:hover {
+  background: rgba(30, 144, 255, 0.4);
+  color: #ffffff;
+  box-shadow: 0 0 15px #00bfff;
+  transform: translateY(-2px);
+}
+
+a:active {
+  transform: translateY(1px);
+}
+
 small {
   color: #a0a0ff;
   margin-top: 10px;
