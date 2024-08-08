@@ -24,8 +24,8 @@ const TodoList = ({ userId }) => {
 
   const parseInput = (input) => {
     const words = input.split(' ');
-    const text = words.filter(word => !isValidUrl(word)).join(' ');
     const link = words.find(word => isValidUrl(word)) || '';
+    const text = words.filter(word => word !== link).join(' ');
     return { text, link };
   };
 
@@ -48,7 +48,7 @@ const TodoList = ({ userId }) => {
   }, [userId]);
 
   const handleAddTodo = async () => {
-    if (newTodo.trim() !== '' && !todos.some(todo => todo.text === newTodo.trim())) {
+    if (newTodo.trim() !== '') {
       try {
         const timestamp = new Date().toISOString();
         const { text, link } = parseInput(newTodo);
@@ -136,7 +136,7 @@ const TodoList = ({ userId }) => {
   const handleMenuAction = (action, todo) => {
     if (action === 'edit') {
       setEditingTodo(todo.id);
-      setEditText(todo.text);
+      setEditText(`${todo.text} ${todo.link}`);
     } else if (action === 'remove') {
       confirmRemoveTodo(todo.id);
     }
@@ -204,14 +204,14 @@ const TodoList = ({ userId }) => {
                   </a>
                 )}
                 <div className="dropdown">
-                <div 
-  className="hamburger-menu"
-  onClick={(e) => toggleDropdown(todo.id, e)}
->
-  <div className="hamburger-line"></div>
-  <div className="hamburger-line"></div>
-  <div className="hamburger-line"></div>
-</div>
+                  <div 
+                    className="hamburger-menu"
+                    onClick={(e) => toggleDropdown(todo.id, e)}
+                  >
+                    <div className="hamburger-line"></div>
+                    <div className="hamburger-line"></div>
+                    <div className="hamburger-line"></div>
+                  </div>
                   {openDropdown === todo.id && (
                     <div className="dropdown-content">
                       <button onClick={(e) => {
