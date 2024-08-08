@@ -5,12 +5,13 @@ import Modal from './Modal';
 
 const TodoList = ({ userId }) => {
   const [todos, setTodos] = useState([]);
-  const [newTodo, setNewTodo] = useState('');
+  const [newTodo, setNewTodo] = useState({ text: '', link: '' });
   const [showModal, setShowModal] = useState(false);
   const [todoToRemove, setTodoToRemove] = useState(null);
   const [error, setError] = useState(null);
   const [editingTodo, setEditingTodo] = useState(null);
   const [editText, setEditText] = useState('');
+  const [editLink, setEditLink] = useState('');
   const [openDropdown, setOpenDropdown] = useState(null);
 
   useEffect(() => {
@@ -32,16 +33,17 @@ const TodoList = ({ userId }) => {
   }, [userId]);
 
   const handleAddTodo = async () => {
-    if (newTodo.trim() !== '' && !todos.some(todo => todo.text === newTodo.trim())) {
+    if (newTodo.text.trim() !== '' && !todos.some(todo => todo.text === newTodo.text.trim())) {
       try {
         const timestamp = new Date().toISOString();
         await addDoc(collection(db, 'todos'), {
-          text: newTodo.trim(),
+          text: newTodo.text.trim(),
+          link: newTodo.link.trim(),
           completed: false,
           timestamp,
           userId
         });
-        setNewTodo('');
+        setNewTodo({ text: '', link: '' });
         setError(null);
       } catch (error) {
         console.error("Error adding todo:", error);
@@ -51,7 +53,7 @@ const TodoList = ({ userId }) => {
   };
 
   const handleKeyPress = (e) => {
-    if (e.key === 'Enter') {
+    if (e.key === 'Enter' && e.target.name === 'text') {
       handleAddTodo();
     }
   };
@@ -96,12 +98,16 @@ const TodoList = ({ userId }) => {
     }
   };
 
-  const handleEditTodo = async (id, newText) => {
+  const handleEditTodo = async (id, newText, newLink) => {
     if (newText.trim() !== '') {
       try {
-        await updateDoc(doc(db, 'todos', id), { text: newText.trim() });
+        await updateDoc(doc(db, 'todos', id), { 
+          text: newText.trim(),
+          link: newLink.trim()
+        });
         setEditingTodo(null);
         setEditText('');
+        setEditLink('');
         setError(null);
       } catch (error) {
         console.error("Error editing todo:", error);
@@ -144,10 +150,18 @@ const TodoList = ({ userId }) => {
       {error && <div className="error">{error}</div>}
       <input
         type="text"
-        value={newTodo}
-        onChange={(e) => setNewTodo(e.target.value)}
+        name="text"
+        value={newTodo.text}
+        onChange={(e) => setNewTodo({...newTodo, text: e.target.value})}
         onKeyPress={handleKeyPress}
         placeholder="Add a new todo"
+      />
+      <input
+        type="text"
+        name="link"
+        value={newTodo.link}
+        onChange={(e) => setNewTodo({...newTodo, link: e.target.value})}
+        placeholder="Add a link (optional)"
       />
       <button className="addButton" onClick={handleAddTodo}>Add</button>
 
@@ -159,22 +173,42 @@ const TodoList = ({ userId }) => {
             onClick={() => toggleComplete(todo.id, todo.completed)}
           >
             {editingTodo === todo.id ? (
-              <input
-                type="text"
-                value={editText}
-                onChange={(e) => setEditText(e.target.value)}
-                onBlur={() => handleEditTodo(todo.id, editText)}
-                onKeyPress={(e) => {
-                  if (e.key === 'Enter') {
-                    handleEditTodo(todo.id, editText);
-                  }
-                }}
-                onClick={(e) => e.stopPropagation()}
-                autoFocus
-              />
+              <>
+                <input
+                  type="text"
+                  value={editText}
+                  onChange={(e) => setEditText(e.target.value)}
+                  onBlur={() => handleEditTodo(todo.id, editText, editLink)}
+                  onKeyPress={(e) => {
+                    if (e.key === 'Enter') {
+                      handleEditTodo(todo.id, editText, editLink);
+                    }
+                  }}
+                  onClick={(e) => e.stopPropagation()}
+                  autoFocus
+                />
+                <input
+                  type="text"
+                  value={editLink}
+                  onChange={(e) => setEditLink(e.target.value)}
+                  onBlur={() => handleEditTodo(todo.id, editText, editLink)}
+                  onKeyPress={(e) => {
+                    if (e.key === 'Enter') {
+                      handleEditTodo(todo.id, editText, editLink);
+                    }
+                  }}
+                  onClick={(e) => e.stopPropagation()}
+                  placeholder="Edit link (optional)"
+                />
+              </>
             ) : (
               <>
                 <span>{todo.text}</span>
+                {todo.link && (
+                  <a href={todo.link} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()}>
+                    Link
+                  </a>
+                )}
                 <div className="dropdown">
                 <div 
   className="hamburger-menu"
