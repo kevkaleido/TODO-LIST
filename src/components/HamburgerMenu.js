@@ -11,6 +11,8 @@ const HamburgerMenu = ({ isAuthenticated, userEmail, onLogout, onClearAllTodos, 
     onConfirm: () => {} // Initialize with an empty function instead of null
   });
 
+  console.log("HamburgerMenu rendered. isAuthenticated:", isAuthenticated, "userEmail:", userEmail);
+
   const toggleMenu = () => setIsOpen(!isOpen);
 
   const handleClearAllTodos = () => {
@@ -71,7 +73,7 @@ const HamburgerMenu = ({ isAuthenticated, userEmail, onLogout, onClearAllTodos, 
         {isAuthenticated ? (
           <>
             <div className="user-email-container">
-              <strong>{userEmail}</strong>
+              <strong>{userEmail || 'Email not available'}</strong>
             </div>
             <div onClick={handleClearAllTodos}>Clear All Todos</div>
             <div onClick={handleClearAllHistory}>Clear All History</div>
