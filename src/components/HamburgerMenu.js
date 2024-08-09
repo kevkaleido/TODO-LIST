@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Modal from './Modal';
 import '../HamburgerMenu.css';
 
-const HamburgerMenu = ({ isAuthenticated, onLogout, onClearAllTodos, onClearAllHistory, onShowSignIn, onShowLogin }) => {
+const HamburgerMenu = ({ isAuthenticated, userEmail, onLogout, onClearAllTodos, onClearAllHistory, onShowSignIn, onShowLogin }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [modalContent, setModalContent] = useState({
@@ -10,6 +10,8 @@ const HamburgerMenu = ({ isAuthenticated, onLogout, onClearAllTodos, onClearAllH
     message: '',
     onConfirm: () => {} // Initialize with an empty function instead of null
   });
+
+  console.log("HamburgerMenu rendered. isAuthenticated:", isAuthenticated, "userEmail:", userEmail);
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
@@ -20,6 +22,7 @@ const HamburgerMenu = ({ isAuthenticated, onLogout, onClearAllTodos, onClearAllH
       onConfirm: () => {
         onClearAllTodos();
         setShowModal(false);
+        setIsOpen(false);
       }
     });
     setShowModal(true);
@@ -32,6 +35,7 @@ const HamburgerMenu = ({ isAuthenticated, onLogout, onClearAllTodos, onClearAllH
       onConfirm: () => {
         onClearAllHistory();
         setShowModal(false);
+        setIsOpen(false);
       }
     });
     setShowModal(true);
@@ -44,9 +48,20 @@ const HamburgerMenu = ({ isAuthenticated, onLogout, onClearAllTodos, onClearAllH
       onConfirm: () => {
         onLogout();
         setShowModal(false);
+        setIsOpen(false);
       }
     });
     setShowModal(true);
+  };
+
+  const handleSignIn = () => {
+    onShowSignIn();
+    setIsOpen(false);
+  };
+
+  const handleLogin = () => {
+    onShowLogin();
+    setIsOpen(false);
   };
 
   return (
@@ -57,14 +72,17 @@ const HamburgerMenu = ({ isAuthenticated, onLogout, onClearAllTodos, onClearAllH
       <div className={`menu ${isOpen ? 'open' : ''}`}>
         {isAuthenticated ? (
           <>
+            <div className="user-email-container">
+              <strong>{userEmail || 'Email not available'}</strong>
+            </div>
             <div onClick={handleClearAllTodos}>Clear All Todos</div>
             <div onClick={handleClearAllHistory}>Clear All History</div>
             <div onClick={handleLogout}>Logout</div>
           </>
         ) : (
           <>
-            <div onClick={onShowSignIn}>Sign In</div>
-            <div onClick={onShowLogin}>Login</div>
+            <div onClick={handleSignIn}>Sign In</div>
+            <div onClick={handleLogin}>Login</div>
           </>
         )}
       </div>
