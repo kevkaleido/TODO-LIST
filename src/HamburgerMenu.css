@@ -21,6 +21,7 @@
 .menu.open {
   display: block;
   animation: fadeIn 0.3s ease-out;
+  
 }
 
 @keyframes fadeIn {
@@ -30,6 +31,7 @@
 
 .menu div {
   margin: 15px 0;
+  
   cursor: pointer;
   color: #e0e0ff;
   transition: all 0.3s;
