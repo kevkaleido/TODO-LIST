@@ -15,13 +15,13 @@
 .menu {
   display: none;
   padding: 20px;
+  text-align: center; /* Center align text */
   transition: opacity 0.3s;
 }
 
 .menu.open {
   display: block;
   animation: fadeIn 0.3s ease-out;
-  
 }
 
 @keyframes fadeIn {
@@ -31,22 +31,22 @@
 
 .menu div {
   margin: 15px 0;
-  
+  text-align: center; /* Center align text */
   cursor: pointer;
-  color: #e0e0ff;
+  color: #d3d3e7; /* Subtle text color */
   transition: all 0.3s;
   padding: 10px;
   border-radius: 5px;
-  background-color: rgba(0, 191, 255, 0.1);
+  background-color: rgba(0, 191, 255, 0.08); /* More subtle background */
 }
 
 .menu div:hover {
-  background-color: rgba(0, 191, 255, 0.2);
-  transform: translateX(5px);
+  background-color: rgba(0, 191, 255, 0.15); /* Softer hover effect */
+  transform: translateY(-2px); /* Slightly lift the element on hover */
 }
 
 .menu .user-email-container {
-  background-color: rgba(0, 191, 255, 0.2);
+  background-color: rgba(0, 191, 255, 0.15); /* Consistent with other elements */
   padding: 15px;
   margin-bottom: 20px;
   margin-top: 0;
@@ -56,7 +56,7 @@
 .menu .user-email-container span {
   display: block;
   font-size: 0.9em;
-  color: #e0e0ff;
+  color: #d3d3e7; /* Subtle text color */
   margin-bottom: 5px;
 }
 
@@ -69,25 +69,25 @@
 
 .menu .user-email-container:hover {
   transform: none;
-  background-color: rgba(0, 191, 255, 0.2);
+  background-color: rgba(0, 191, 255, 0.15); /* Keep hover consistent */
 }
 
 .menu div:not(.user-email-container) {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center; /* Center content horizontally */
 }
 
 .menu div:not(.user-email-container)::after {
-  content: '›';
   font-size: 1.2em;
   color: #00bfff;
+  margin-left: 10px;
 }
 
 /* Responsive adjustments for hamburger menu */
 @media (max-width: 600px) {
   .hamburger {
-    font-size: 20px;
+    font-size: 30px;
   }
 
   .menu div {
