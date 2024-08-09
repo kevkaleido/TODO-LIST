@@ -20,6 +20,7 @@ const HamburgerMenu = ({ isAuthenticated, userEmail, onLogout, onClearAllTodos, 
       onConfirm: () => {
         onClearAllTodos();
         setShowModal(false);
+        setIsOpen(false);
       }
     });
     setShowModal(true);
@@ -32,6 +33,7 @@ const HamburgerMenu = ({ isAuthenticated, userEmail, onLogout, onClearAllTodos, 
       onConfirm: () => {
         onClearAllHistory();
         setShowModal(false);
+        setIsOpen(false);
       }
     });
     setShowModal(true);
@@ -44,9 +46,20 @@ const HamburgerMenu = ({ isAuthenticated, userEmail, onLogout, onClearAllTodos, 
       onConfirm: () => {
         onLogout();
         setShowModal(false);
+        setIsOpen(false);
       }
     });
     setShowModal(true);
+  };
+
+  const handleSignIn = () => {
+    onShowSignIn();
+    setIsOpen(false);
+  };
+
+  const handleLogin = () => {
+    onShowLogin();
+    setIsOpen(false);
   };
 
   return (
@@ -67,8 +80,8 @@ const HamburgerMenu = ({ isAuthenticated, userEmail, onLogout, onClearAllTodos, 
           </>
         ) : (
           <>
-            <div onClick={onShowSignIn}>Sign In</div>
-            <div onClick={onShowLogin}>Login</div>
+            <div onClick={handleSignIn}>Sign In</div>
+            <div onClick={handleLogin}>Login</div>
           </>
         )}
       </div>
