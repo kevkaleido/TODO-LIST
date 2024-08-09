@@ -194,6 +194,7 @@ small {
 .historyList.selected {
   background-color: #192b41;
   color: #53536c;
+ 
 }
 
 .clearButton {
@@ -239,6 +240,10 @@ small {
   input[type="text"] {
       width: 80%;
       margin-top: 0;
+  }
+
+  a{
+    
   }
 
   button {

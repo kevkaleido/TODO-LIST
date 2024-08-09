@@ -196,7 +196,7 @@ const TodoList = ({ userId }) => {
                 onClick={(e) => e.stopPropagation()}
                 autoFocus
                 style={{
-                  width: '100%',
+                  width: '70%',
                   minHeight: '60px',
                   resize: 'vertical',
                   padding: '5px',
