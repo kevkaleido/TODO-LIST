@@ -57,7 +57,10 @@ const HamburgerMenu = ({ isAuthenticated, userEmail, onLogout, onClearAllTodos, 
       <div className={`menu ${isOpen ? 'open' : ''}`}>
         {isAuthenticated ? (
           <>
-            <div className="user-email">{userEmail}</div>
+            <div className="user-email-container">
+              <span>Logged in as:</span>
+              <strong>{userEmail}</strong>
+            </div>
             <div onClick={handleClearAllTodos}>Clear All Todos</div>
             <div onClick={handleClearAllHistory}>Clear All History</div>
             <div onClick={handleLogout}>Logout</div>
