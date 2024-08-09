@@ -40,6 +40,17 @@
   transform: translateX(5px);
 }
 
+.menu .user-email {
+  font-weight: bold;
+  color: #00bfff;
+  margin-bottom: 20px;
+  cursor: default;
+}
+
+.menu .user-email:hover {
+  transform: none;
+}
+
 /* Responsive adjustments for hamburger menu */
 @media (max-width: 600px) {
   .hamburger {
