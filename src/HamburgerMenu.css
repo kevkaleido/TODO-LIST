@@ -32,17 +32,20 @@
   margin: 15px 0;
   cursor: pointer;
   color: #e0e0ff;
-  transition: color 0.3s, transform 0.3s;
+  transition: all 0.3s;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: rgba(0, 191, 255, 0.1);
 }
 
 .menu div:hover {
-  color: #00bfff;
+  background-color: rgba(0, 191, 255, 0.2);
   transform: translateX(5px);
 }
 
 .menu .user-email-container {
-  border-radius: 5px;
-  padding-bottom: 10px;
+  background-color: rgba(0, 191, 255, 0.2);
+  padding: 15px;
   margin-bottom: 20px;
   margin-top: 0;
   cursor: default;
@@ -64,6 +67,19 @@
 
 .menu .user-email-container:hover {
   transform: none;
+  background-color: rgba(0, 191, 255, 0.2);
+}
+
+.menu div:not(.user-email-container) {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.menu div:not(.user-email-container)::after {
+  content: '›';
+  font-size: 1.2em;
+  color: #00bfff;
 }
 
 /* Responsive adjustments for hamburger menu */
