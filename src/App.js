@@ -65,6 +65,7 @@ const App = () => {
     <div id="app">
       <HamburgerMenu 
         isAuthenticated={!!user} 
+        userEmail={user ? user.email : null}
         onLogout={handleLogout}
         onClearAllTodos={clearAllTodos}
         onClearAllHistory={clearAllHistory}
