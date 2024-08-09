@@ -159,7 +159,8 @@ const TodoList = ({ userId }) => {
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
-    return `${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')} ${date.getDate().toString().padStart(2, '0')}/${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getFullYear().toString().slice(-2)}`;
+    const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    return `${days[date.getDay()]} ${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')} ${date.getDate().toString().padStart(2, '0')}/${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getFullYear().toString().slice(-2)}`;
   };
 
   return (
@@ -182,18 +183,25 @@ const TodoList = ({ userId }) => {
             onClick={() => toggleComplete(todo.id, todo.completed)}
           >
             {editingTodo === todo.id ? (
-              <input
-                type="text"
+              <textarea
                 value={editText}
                 onChange={(e) => setEditText(e.target.value)}
                 onBlur={() => handleEditTodo(todo.id, editText)}
                 onKeyPress={(e) => {
-                  if (e.key === 'Enter') {
+                  if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
                     handleEditTodo(todo.id, editText);
                   }
                 }}
                 onClick={(e) => e.stopPropagation()}
                 autoFocus
+                style={{
+                  width: '100%',
+                  minHeight: '60px',
+                  resize: 'vertical',
+                  padding: '5px',
+                  boxSizing: 'border-box'
+                }}
               />
             ) : (
               <>
