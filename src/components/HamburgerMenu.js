@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { collection, query, where, onSnapshot } from 'firebase/firestore';
 import { db } from '../firebase';
 import Modal from './Modal';
 import '../HamburgerMenu.css';
 
 const HamburgerMenu = ({ isAuthenticated, userEmail, onLogout, onClearAllTodos, onClearAllHistory, onShowSignIn, onShowLogin, onToggleHistory, historyToggleText, showHistory }) => {
+  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [modalContent, setModalContent] = useState({
     title: '',
     message: '',
-    onConfirm: () => {} // Initialize with an empty function instead of null
+    onConfirm: () => {}
   });
 
   const [unreadMessages, setUnreadMessages] = useState(0);
@@ -82,6 +83,12 @@ const HamburgerMenu = ({ isAuthenticated, userEmail, onLogout, onClearAllTodos, 
     setIsOpen(false);
   };
 
+  const handleToggleHistory = () => {
+    onToggleHistory();
+    setIsOpen(false);
+    navigate('/');
+  };
+
   return (
     <div>
       <div className="hamburger" onClick={toggleMenu}>
@@ -93,7 +100,7 @@ const HamburgerMenu = ({ isAuthenticated, userEmail, onLogout, onClearAllTodos, 
             <div className="user-email-container">
               <strong>{userEmail || 'Email not available'}</strong>
             </div>
-            <div onClick={() => { onToggleHistory(); setIsOpen(false); }}>{historyToggleText}</div>
+            <div onClick={handleToggleHistory}>{historyToggleText}</div>
             {!showHistory && <div onClick={handleClearAllTodos}>Clear All Todos</div>}
             {showHistory && <div onClick={handleClearAllHistory}>Clear All History</div>}
             <Link to="/chat" onClick={() => setIsOpen(false)}>
