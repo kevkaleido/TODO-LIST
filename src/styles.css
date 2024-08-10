@@ -255,6 +255,7 @@ small {
 
   li {
       font-size: 1.2rem;
+      width: 99%;
   }
 
   ul.scrollable {
@@ -271,7 +272,7 @@ small {
   }
 
   ul.scrollable::-webkit-scrollbar-thumb:hover {
-      background: linear-gradient(45deg, #1e90ff, #4682b4);
+      background: linear-gradient(45deg, #042b52, #4682b4);
   }
 }
 
