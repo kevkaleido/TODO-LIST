@@ -30,18 +30,19 @@ body {
   max-width: 600px;
   width: 100%;
   transition: transform 0.5s, box-shadow 0.5s;
-  padding-top: 30px;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-
-
 
 h1, h2 {
   color: #00bfff;
   text-shadow: 3px 3px #000080;
   margin-bottom: 30px;
   animation: textGlow 2s infinite alternate;
+  text-align: center;
+  width: 100%;
 }
 
 h2 {
@@ -55,12 +56,13 @@ h2 {
 }
 
 input[type="text"] {
-  width: 80%;
+  width: 70%;
   padding: 15px;
   border: 2px solid #1e90ff;
   border-radius: 15px;
   margin-bottom: 25px;
   background: #14144d;
+  margin-right: auto;
   color: #e0e0ff;
   outline: none;
   transition: all 0.3s, box-shadow 0.3s;
@@ -105,6 +107,9 @@ ul {
   max-height: 350px;
   overflow-y: auto;
   border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 ul.scrollable {
@@ -126,16 +131,22 @@ ul.scrollable::-webkit-scrollbar-thumb:hover {
 
 li {
   background: #29294d;
+  width: 80%;
   color: #1e90ff;
   margin-bottom: 15px;
   padding: 15px;
   border-radius: 15px;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
+  text-align: center;
   box-shadow: 0 0 25px rgba(0, 191, 255, 1), 0 0 50px rgba(30, 144, 255, 0.7);
   transition: background 0.3s, transform 0.3s;
-  flex-direction: column;
+}
+
+li:last-child {
+  margin-bottom: 0;
 }
 
 li:hover {
@@ -242,16 +253,12 @@ small {
       margin-top: 0;
   }
 
-  a{
-    
-  }
-
   button {
-      width: 50%;
+      max-width: 50%;
       margin-top: 0px;
-      transform: scale(0.80);
+      transform: scale(0.90);
       text-align: center;
-      padding: 15px 30px;
+      padding: 15px 10px;
   }
 
   ul {
