@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { collection, query, where, getDocs, deleteDoc } from 'firebase/firestore';
 import { auth, db } from './firebase';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import TodoList from './components/TodoList';
 import HistoryList from './components/HistoryList';
 import SignIn from './components/SignIn';
@@ -15,7 +16,7 @@ const App = () => {
   const [showSignIn, setShowSignIn] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
   const [showHistory, setShowHistory] = useState(false);
-  const [showChat, setShowChat] = useState(false);
+  const [chatContext, setChatContext] = useState(null);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -70,59 +71,59 @@ const App = () => {
 
   const historyToggleText = showHistory ? "Show Tasks" : "Show History";
 
-  const showChatComponent = () => {
-    setShowHistory(false);
-    setShowChat(true);
+  const startChat = (item) => {
+    setChatContext({
+      id: item.id,
+      type: item.completed !== undefined ? 'todo' : 'history',
+      text: item.text,
+      completed: item.completed
+    });
   };
 
   return (
-    <div id="app">
-      <HamburgerMenu 
-        isAuthenticated={!!user} 
-        userEmail={user ? user.email : null}
-        onLogout={handleLogout}
-        onClearAllTodos={clearAllTodos}
-        onClearAllHistory={clearAllHistory}
-        onShowSignIn={showSignInForm}
-        onShowLogin={showLoginForm}
-        onToggleHistory={toggleHistory}
-        historyToggleText={historyToggleText}
-        showHistory={showHistory}
-        onShowChat={showChatComponent}
-      />
+    <Router>
+      <div id="app">
+        <HamburgerMenu 
+          isAuthenticated={!!user} 
+          userEmail={user ? user.email : null}
+          onLogout={handleLogout}
+          onClearAllTodos={clearAllTodos}
+          onClearAllHistory={clearAllHistory}
+          onShowSignIn={showSignInForm}
+          onShowLogin={showLoginForm}
+          onToggleHistory={toggleHistory}
+          historyToggleText={historyToggleText}
+          showHistory={showHistory}
+        />
 
-      <h1>wo2do</h1>
+        <h1>wo2do</h1>
 
-      {!user && (
-        <>
-          {showSignIn && <SignIn />}
-          {showLogin && <Login />}
-          {!showSignIn && !showLogin && (
-            <div className="home-buttons">
-              <button onClick={showSignInForm}>SignIn</button>
-              <button onClick={showLoginForm}>Login</button>
-            </div>
-          )}
-        </>
-      )}
-
-      {user && (
-        <>
-          {!showHistory && !showChat && (
-            <TodoList userId={user.uid} />
-          )}
-          {showHistory && !showChat && (
-            <>
-              <h2>History</h2>
-              <HistoryList userId={user.uid} />
-            </>
-          )}
-          {showChat && (
-            <ChatComponent userId={user.uid} />
-          )}
-        </>
-      )}
-    </div>
+        <Routes>
+          <Route path="/signin" element={!user ? <SignIn /> : <Navigate to="/" />} />
+          <Route path="/login" element={!user ? <Login /> : <Navigate to="/" />} />
+          <Route path="/" element={
+            user ? (
+              showHistory ? (
+                <>
+                  <h2>History</h2>
+                  <HistoryList userId={user.uid} onStartChat={startChat} />
+                </>
+              ) : (
+                <TodoList userId={user.uid} onStartChat={startChat} />
+              )
+            ) : (
+              <div className="home-buttons">
+                <button onClick={showSignInForm}>SignIn</button>
+                <button onClick={showLoginForm}>Login</button>
+              </div>
+            )
+          } />
+          <Route path="/chat" element={
+            user ? <ChatComponent userId={user.uid} chatContext={chatContext} /> : <Navigate to="/login" />
+          } />
+        </Routes>
+      </div>
+    </Router>
   );
 };
 
