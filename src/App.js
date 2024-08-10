@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { collection, query, where, getDocs, deleteDoc } from 'firebase/firestore';
 import { auth, db } from './firebase';
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate, Link } from 'react-router-dom';
 import TodoList from './components/TodoList';
 import HistoryList from './components/HistoryList';
 import SignIn from './components/SignIn';
@@ -13,8 +13,6 @@ import './styles.css';
 
 const App = () => {
   const [user, setUser] = useState(null);
-  const [showSignIn, setShowSignIn] = useState(false);
-  const [showLogin, setShowLogin] = useState(false);
   const [showHistory, setShowHistory] = useState(false);
   const [chatContext, setChatContext] = useState(null);
 
@@ -55,15 +53,6 @@ const App = () => {
     }
   };
 
-  const showSignInForm = () => {
-    setShowSignIn(true);
-    setShowLogin(false);
-  };
-
-  const showLoginForm = () => {
-    setShowLogin(true);
-    setShowSignIn(false);
-  };
 
   const toggleHistory = () => {
     setShowHistory(!showHistory);
@@ -89,8 +78,8 @@ const App = () => {
           onLogout={handleLogout}
           onClearAllTodos={clearAllTodos}
           onClearAllHistory={clearAllHistory}
-          onShowSignIn={showSignInForm}
-          onShowLogin={showLoginForm}
+          onShowSignIn={() => {}}
+          onShowLogin={() => {}}
           onToggleHistory={toggleHistory}
           historyToggleText={historyToggleText}
           showHistory={showHistory}
@@ -113,8 +102,8 @@ const App = () => {
               )
             ) : (
               <div className="home-buttons">
-                <button onClick={showSignInForm}>SignIn</button>
-                <button onClick={showLoginForm}>Login</button>
+                <Link to="/signin"><button>SignIn</button></Link>
+                <Link to="/login"><button>Login</button></Link>
               </div>
             )
           } />
