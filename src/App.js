@@ -13,6 +13,7 @@ const App = () => {
   const [user, setUser] = useState(null);
   const [showSignIn, setShowSignIn] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
+  const [showHistory, setShowHistory] = useState(false);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -61,6 +62,10 @@ const App = () => {
     setShowSignIn(false);
   };
 
+  const toggleHistory = () => {
+    setShowHistory(!showHistory);
+  };
+
   return (
     <div id="app">
       <HamburgerMenu 
@@ -71,6 +76,7 @@ const App = () => {
         onClearAllHistory={clearAllHistory}
         onShowSignIn={showSignInForm}
         onShowLogin={showLoginForm}
+        onToggleHistory={toggleHistory}
       />
 
       <h1>wo2do</h1>
@@ -90,9 +96,13 @@ const App = () => {
 
       {user && (
         <>
-          <TodoList userId={user.uid} />
-          <h2>History</h2>
-          <HistoryList userId={user.uid} />
+          {!showHistory && <TodoList userId={user.uid} />}
+          {showHistory && (
+            <>
+              <h2>History</h2>
+              <HistoryList userId={user.uid} />
+            </>
+          )}
         </>
       )}
     </div>
