@@ -80,6 +80,7 @@ const App = () => {
         onShowLogin={showLoginForm}
         onToggleHistory={toggleHistory}
         historyToggleText={historyToggleText}
+        showHistory={showHistory}
       />
 
       <h1>wo2do</h1>
@@ -99,7 +100,12 @@ const App = () => {
 
       {user && (
         <>
-          {!showHistory && <TodoList userId={user.uid} />}
+          {!showHistory && (
+            <>
+              <TodoList userId={user.uid} />
+              <button onClick={clearAllHistory}>Clear All History</button>
+            </>
+          )}
           {showHistory && (
             <>
               <h2>History</h2>

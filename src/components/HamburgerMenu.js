@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Modal from './Modal';
 import '../HamburgerMenu.css';
 
-const HamburgerMenu = ({ isAuthenticated, userEmail, onLogout, onClearAllTodos, onClearAllHistory, onShowSignIn, onShowLogin, onToggleHistory, historyToggleText }) => {
+const HamburgerMenu = ({ isAuthenticated, userEmail, onLogout, onClearAllTodos, onClearAllHistory, onShowSignIn, onShowLogin, onToggleHistory, historyToggleText, showHistory }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [modalContent, setModalContent] = useState({
@@ -77,7 +77,7 @@ const HamburgerMenu = ({ isAuthenticated, userEmail, onLogout, onClearAllTodos, 
             </div>
             <div onClick={() => { onToggleHistory(); setIsOpen(false); }}>{historyToggleText}</div>
             <div onClick={handleClearAllTodos}>Clear All Todos</div>
-            <div onClick={handleClearAllHistory}>Clear All History</div>
+            {showHistory && <div onClick={handleClearAllHistory}>Clear All History</div>}
             <div onClick={handleLogout}>Logout</div>
           </>
         ) : (
