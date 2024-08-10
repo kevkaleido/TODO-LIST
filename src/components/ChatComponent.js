@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { collection, addDoc, query, where, orderBy, onSnapshot } from 'firebase/firestore';
+import { collection, addDoc, query, orderBy, onSnapshot } from 'firebase/firestore';
 import { db } from '../firebase';
 
 const ChatComponent = ({ userId }) => {
