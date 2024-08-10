@@ -26,8 +26,6 @@ const App = () => {
   const handleLogout = async () => {
     try {
       await signOut(auth);
-      setShowSignIn(false);
-      setShowLogin(false);
     } catch (error) {
       console.error('Error signing out: ', error);
     }
