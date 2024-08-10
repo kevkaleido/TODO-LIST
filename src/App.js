@@ -7,6 +7,7 @@ import HistoryList from './components/HistoryList';
 import SignIn from './components/SignIn';
 import Login from './components/Login';
 import HamburgerMenu from './components/HamburgerMenu';
+import ChatComponent from './components/ChatComponent';
 import './styles.css';
 
 const App = () => {
@@ -14,6 +15,7 @@ const App = () => {
   const [showSignIn, setShowSignIn] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
   const [showHistory, setShowHistory] = useState(false);
+  const [showChat, setShowChat] = useState(false);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -68,6 +70,11 @@ const App = () => {
 
   const historyToggleText = showHistory ? "Show Tasks" : "Show History";
 
+  const showChatComponent = () => {
+    setShowHistory(false);
+    setShowChat(true);
+  };
+
   return (
     <div id="app">
       <HamburgerMenu 
@@ -81,6 +88,7 @@ const App = () => {
         onToggleHistory={toggleHistory}
         historyToggleText={historyToggleText}
         showHistory={showHistory}
+        onShowChat={showChatComponent}
       />
 
       <h1>wo2do</h1>
@@ -100,14 +108,17 @@ const App = () => {
 
       {user && (
         <>
-          {!showHistory && (
+          {!showHistory && !showChat && (
             <TodoList userId={user.uid} />
           )}
-          {showHistory && (
+          {showHistory && !showChat && (
             <>
               <h2>History</h2>
               <HistoryList userId={user.uid} />
             </>
+          )}
+          {showChat && (
+            <ChatComponent userId={user.uid} />
           )}
         </>
       )}
