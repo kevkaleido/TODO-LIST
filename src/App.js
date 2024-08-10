@@ -102,10 +102,7 @@ const App = () => {
       {user && (
         <>
           {!showHistory && (
-            <>
-              <TodoList userId={user.uid} />
-              <button onClick={clearAllHistory}>Clear All History</button>
-            </>
+            <TodoList userId={user.uid} />
           )}
           {showHistory && (
             <>
