@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { collection, deleteDoc, doc, onSnapshot, query, where, orderBy } from 'firebase/firestore';
 import { db } from '../firebase';
 import Modal from './Modal';
+import { useNavigate } from 'react-router-dom';
 
 const HistoryList = ({ userId, onStartChat }) => {
   const navigate = useNavigate();
@@ -106,6 +107,11 @@ const HistoryList = ({ userId, onStartChat }) => {
             )}
             <br />
             <small>{formatDate(item.removedAt)}</small>
+            <button onClick={(e) => {
+              e.stopPropagation();
+              onStartChat(item);
+              navigate('/chat');
+            }}>Chat</button>
           </li>
         ))}
       </ul>
