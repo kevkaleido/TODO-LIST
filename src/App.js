@@ -66,6 +66,8 @@ const App = () => {
     setShowHistory(!showHistory);
   };
 
+  const historyToggleText = showHistory ? "Show Tasks" : "Show History";
+
   return (
     <div id="app">
       <HamburgerMenu 
@@ -77,6 +79,7 @@ const App = () => {
         onShowSignIn={showSignInForm}
         onShowLogin={showLoginForm}
         onToggleHistory={toggleHistory}
+        historyToggleText={historyToggleText}
       />
 
       <h1>wo2do</h1>
