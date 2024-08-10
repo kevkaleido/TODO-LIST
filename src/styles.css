@@ -249,6 +249,10 @@ small {
       padding: 15px 10px;
   }
 
+  form {
+   padding: 20px;
+  }
+
   ul {
       padding: 0;
   }
