@@ -25,8 +25,7 @@ body {
 #app {
   background: rgba(25, 25, 112, 0.95);
   border-radius: 20px;
-  box-shadow: 0 0 50px rgba(0, 191, 255, 1), 0 0 100px rgba(30, 144, 255, 0.7);
-  padding: 30px;
+box-shadow: 0 0 50px rgba(0, 191, 255, 0.4), 0 0 100px rgba(30, 144, 255, 0.3);  padding: 30px;
   max-width: 600px;
   width: 95%;
   transition: transform 0.5s, box-shadow 0.5s;
@@ -107,7 +106,7 @@ ul {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 50px;
+  margin-bottom: 70px;
 }
 
 ul.scrollable {
@@ -143,18 +142,12 @@ li {
   transition: background 0.3s, transform 0.3s;
 }
 
-li:last-child {
-  margin-bottom: 0;
-}
 
-li:hover {
-  background: #35356b;
-}
 
 li.completed {
   text-decoration: line-through;
-  background: #1a3e5c;
-  color: #00bfff;
+  box-shadow: 0 0 25px rgb(78, 51, 47), 0 0 50px rgba(30, 144, 255, 0.7);
+
 }
 
 span {
