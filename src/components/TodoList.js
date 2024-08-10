@@ -3,7 +3,8 @@ import { collection, addDoc, deleteDoc, doc, updateDoc, onSnapshot, query, where
 import { db } from '../firebase';
 import Modal from './Modal';
 
-const TodoList = ({ userId }) => {
+const TodoList = ({ userId, onStartChat }) => {
+  const navigate = useNavigate();
   const [todos, setTodos] = useState([]);
   const [newTodo, setNewTodo] = useState('');
   const [showModal, setShowModal] = useState(false);

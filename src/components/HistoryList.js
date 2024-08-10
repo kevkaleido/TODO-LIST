@@ -3,7 +3,8 @@ import { collection, deleteDoc, doc, onSnapshot, query, where, orderBy } from 'f
 import { db } from '../firebase';
 import Modal from './Modal';
 
-const HistoryList = ({ userId }) => {
+const HistoryList = ({ userId, onStartChat }) => {
+  const navigate = useNavigate();
   const [history, setHistory] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [selectedItems, setSelectedItems] = useState([]);
