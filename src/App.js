@@ -81,6 +81,7 @@ const App = () => {
         onToggleHistory={toggleHistory}
         historyToggleText={historyToggleText}
         showHistory={showHistory}
+        showHistory={showHistory}
       />
 
       <h1>wo2do</h1>

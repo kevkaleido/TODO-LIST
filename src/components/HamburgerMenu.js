@@ -76,7 +76,7 @@ const HamburgerMenu = ({ isAuthenticated, userEmail, onLogout, onClearAllTodos, 
               <strong>{userEmail || 'Email not available'}</strong>
             </div>
             <div onClick={() => { onToggleHistory(); setIsOpen(false); }}>{historyToggleText}</div>
-            <div onClick={handleClearAllTodos}>Clear All Todos</div>
+            {!showHistory && <div onClick={handleClearAllTodos}>Clear All Todos</div>}
             {showHistory && <div onClick={handleClearAllHistory}>Clear All History</div>}
             <div onClick={handleLogout}>Logout</div>
           </>
