@@ -1,16 +1,26 @@
 import React, { useState, useEffect } from 'react';
-import { collection, addDoc, query, orderBy, onSnapshot } from 'firebase/firestore';
+import { collection, addDoc, query, orderBy, onSnapshot, where } from 'firebase/firestore';
 import { db } from '../firebase';
 
-const ChatComponent = ({ userId }) => {
+const ChatComponent = ({ userId, chatContext }) => {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
 
   useEffect(() => {
-    const q = query(
-      collection(db, 'messages'),
-      orderBy('timestamp', 'asc')
-    );
+    let q;
+    if (chatContext && chatContext.id) {
+      q = query(
+        collection(db, 'messages'),
+        where('contextId', '==', chatContext.id),
+        orderBy('timestamp', 'asc')
+      );
+    } else {
+      q = query(
+        collection(db, 'messages'),
+        where('contextId', '==', null),
+        orderBy('timestamp', 'asc')
+      );
+    }
 
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const messagesData = querySnapshot.docs.map(doc => ({
@@ -21,7 +31,7 @@ const ChatComponent = ({ userId }) => {
     });
 
     return () => unsubscribe();
-  }, []);
+  }, [chatContext]);
 
   const handleSendMessage = async (e) => {
     e.preventDefault();
@@ -31,7 +41,10 @@ const ChatComponent = ({ userId }) => {
       await addDoc(collection(db, 'messages'), {
         text: newMessage,
         userId: userId,
-        timestamp: new Date()
+        timestamp: new Date(),
+        contextId: chatContext ? chatContext.id : null,
+        contextType: chatContext ? chatContext.type : null,
+        contextText: chatContext ? chatContext.text : null
       });
       setNewMessage('');
     } catch (error) {
@@ -41,6 +54,16 @@ const ChatComponent = ({ userId }) => {
 
   return (
     <div className="chat-component">
+      {chatContext && (
+        <div className="chat-context">
+          <h3>Chat Context:</h3>
+          <p>{chatContext.text}</p>
+          <p>Type: {chatContext.type}</p>
+          {chatContext.completed !== undefined && (
+            <p>Status: {chatContext.completed ? 'Completed' : 'Pending'}</p>
+          )}
+        </div>
+      )}
       <div className="message-list">
         {messages.map((message) => (
           <div key={message.id} className={`message ${message.userId === userId ? 'sent' : 'received'}`}>
