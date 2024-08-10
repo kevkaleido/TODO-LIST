@@ -421,7 +421,7 @@ button:hover {
   background-color: #2d75e1;
 }
 
-Chat Component Styles */       
+/* Chat Component Styles */       
 .chat-component {                 
   display: flex;                  
   flex-direction: column;         
