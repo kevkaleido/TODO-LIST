@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { collection, addDoc, deleteDoc, doc, updateDoc, onSnapshot, query, where, serverTimestamp } from 'firebase/firestore';
 import { db } from '../firebase';
 import Modal from './Modal';
+import { toast } from 'react-toastify';
 
 const TodoList = ({ userId }) => {
   const [todos, setTodos] = useState([]);
@@ -29,14 +30,36 @@ const TodoList = ({ userId }) => {
     return { text, link };
   };
 
+  const checkDeadlines = (todos) => {
+    const now = new Date();
+    todos.forEach(todo => {
+      if (todo.deadline) {
+        const deadline = new Date(todo.deadline);
+        const timeDiff = deadline.getTime() - now.getTime();
+        const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
+      
+        if (daysDiff <= 1 && daysDiff > 0) {
+          toast.warn(`Todo "${todo.text}" is due tomorrow!`);
+        } else if (daysDiff === 0) {
+          toast.error(`Todo "${todo.text}" is due today!`);
+        }
+      }
+    });
+  };
+
   useEffect(() => {
     if (userId) {
       const q = query(collection(db, 'todos'), where('userId', '==', userId));
       const unsubscribe = onSnapshot(q, 
         (querySnapshot) => {
           const todosData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-          todosData.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+          todosData.sort((a, b) => {
+            if (a.priority && !b.priority) return -1;
+            if (!a.priority && b.priority) return 1;
+            return new Date(b.timestamp) - new Date(a.timestamp);
+          });
           setTodos(todosData);
+          checkDeadlines(todosData);
         },
         (error) => {
           console.error("Error fetching todos:", error);
@@ -57,7 +80,9 @@ const TodoList = ({ userId }) => {
           link,
           completed: false,
           timestamp,
-          userId
+          userId,
+          priority: false,
+          deadline: null
         });
         setNewTodo('');
         setError(null);
@@ -139,6 +164,33 @@ const TodoList = ({ userId }) => {
       setEditText(`${todo.text} ${todo.link}`);
     } else if (action === 'remove') {
       confirmRemoveTodo(todo.id);
+    } else if (action === 'togglePriority') {
+      handleTogglePriority(todo.id, !todo.priority);
+    } else if (action === 'setDeadline') {
+      handleSetDeadline(todo.id);
+    }
+  };
+
+  const handleTogglePriority = async (id, priority) => {
+    try {
+      await updateDoc(doc(db, 'todos', id), { priority });
+      setError(null);
+    } catch (error) {
+      console.error("Error updating todo priority:", error);
+      setError("Failed to update todo priority. Please try again.");
+    }
+  };
+
+  const handleSetDeadline = async (id) => {
+    const deadline = prompt("Enter deadline (YYYY-MM-DD):");
+    if (deadline) {
+      try {
+        await updateDoc(doc(db, 'todos', id), { deadline });
+        setError(null);
+      } catch (error) {
+        console.error("Error setting todo deadline:", error);
+        setError("Failed to set todo deadline. Please try again.");
+      }
     }
   };
 
@@ -234,10 +286,24 @@ const TodoList = ({ userId }) => {
                         handleMenuAction('remove', todo);
                         setOpenDropdown(null);
                       }}>Remove</button>
+                      <button onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        handleMenuAction('togglePriority', todo);
+                        setOpenDropdown(null);
+                      }}>{todo.priority ? 'Unprioritize' : 'Prioritize'}</button>
+                      <button onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        handleMenuAction('setDeadline', todo);
+                        setOpenDropdown(null);
+                      }}>Set Deadline</button>
                     </div>
                   )}
                 </div>
                 <span className="timestamp">{formatDate(todo.timestamp)}</span>
+                {todo.priority && <span className="priority-indicator">⭐</span>}
+                {todo.deadline && <span className="deadline-indicator">🕒 {new Date(todo.deadline).toLocaleDateString()}</span>}
               </>
             )}
           </li>
