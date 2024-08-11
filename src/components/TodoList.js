@@ -56,6 +56,11 @@ const TodoList = ({ userId }) => {
           todosData.sort((a, b) => {
             if (a.priority && !b.priority) return -1;
             if (!a.priority && b.priority) return 1;
+            if (a.deadline && b.deadline) {
+              return new Date(a.deadline) - new Date(b.deadline);
+            }
+            if (a.deadline) return -1;
+            if (b.deadline) return 1;
             return new Date(b.timestamp) - new Date(a.timestamp);
           });
           setTodos(todosData);
