@@ -132,9 +132,6 @@ const HamburgerMenu = ({ isAuthenticated, userEmail, onLogout, onClearAllTodos, 
             <div className="user-email-container">
               <strong>{userEmail || 'Email not available'}</strong>
             </div>
-            <Link to="/chat" onClick={() => setIsOpen(false)}>
-              Chat {unreadMessages > 0 && <span className="notification">{unreadMessages}</span>}
-            </Link>
             {isChatRoute ? (
               <>
                 <Link to="/" onClick={() => setIsOpen(false)}>Tasks</Link>
@@ -142,6 +139,9 @@ const HamburgerMenu = ({ isAuthenticated, userEmail, onLogout, onClearAllTodos, 
               </>
             ) : (
               <>
+                <Link to="/chat" onClick={() => setIsOpen(false)}>
+                  Chat {unreadMessages > 0 && <span className="notification">{unreadMessages}</span>}
+                </Link>
                 <div onClick={handleToggleHistory}>{historyToggleText}</div>
                 {!showHistory && <div onClick={handleClearAllTodos}>Clear All Todos</div>}
                 {showHistory && <div onClick={handleClearAllHistory}>Clear All History</div>}
