@@ -4,7 +4,7 @@ import { db } from '../firebase';
 import Modal from './Modal';
 import { useNavigate } from 'react-router-dom';
 
-const HistoryList = ({ userId }) => {
+const HistoryList = ({ userId, onStartChat }) => {
   const navigate = useNavigate();
   const [history, setHistory] = useState([]);
   const [showModal, setShowModal] = useState(false);

@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Modal from './Modal';
 import '../HamburgerMenu.css';
+import { collection, query, where, onSnapshot } from 'firebase/firestore';
+import { db } from '../firebase';
 
 const HamburgerMenu = ({ isAuthenticated, userEmail, onLogout, onClearAllTodos, onClearAllHistory, onShowSignIn, onShowLogin, onToggleHistory, historyToggleText, showHistory }) => {
   const navigate = useNavigate();
@@ -12,6 +14,22 @@ const HamburgerMenu = ({ isAuthenticated, userEmail, onLogout, onClearAllTodos, 
     message: '',
     onConfirm: () => {}
   });
+  const [unreadMessages, setUnreadMessages] = useState(0);
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      const q = query(
+        collection(db, 'messages'),
+        where('read', '==', false)
+      );
+
+      const unsubscribe = onSnapshot(q, (querySnapshot) => {
+        setUnreadMessages(querySnapshot.size);
+      });
+
+      return () => unsubscribe();
+    }
+  }, [isAuthenticated]);
 
 
   const toggleMenu = () => setIsOpen(!isOpen);
@@ -101,6 +119,9 @@ const HamburgerMenu = ({ isAuthenticated, userEmail, onLogout, onClearAllTodos, 
             <div onClick={handleToggleHistory}>{historyToggleText}</div>
             {!showHistory && <div onClick={handleClearAllTodos}>Clear All Todos</div>}
             {showHistory && <div onClick={handleClearAllHistory}>Clear All History</div>}
+            <Link to="/chat" onClick={() => setIsOpen(false)}>
+              Chat {unreadMessages > 0 && <span className="notification">{unreadMessages}</span>}
+            </Link>
             <div onClick={handleLogout}>Logout</div>
           </>
         ) : (

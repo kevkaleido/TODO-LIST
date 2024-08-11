@@ -4,7 +4,7 @@ import { db } from '../firebase';
 import Modal from './Modal';
 import { useNavigate } from 'react-router-dom';
 
-const TodoList = ({ userId }) => {
+const TodoList = ({ userId, onStartChat }) => {
   const navigate = useNavigate();
   const [todos, setTodos] = useState([]);
   const [newTodo, setNewTodo] = useState('');
