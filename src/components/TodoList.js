@@ -330,37 +330,41 @@ const TodoList = ({ userId }) => {
                   </div>
                   {openDropdown === todo.id && (
                     <div className="dropdown-content">
-                      <button onClick={(e) => {
+                      <span onClick={(e) => {
                         e.preventDefault();
                         e.stopPropagation();
                         handleMenuAction('edit', todo);
                         setOpenDropdown(null);
-                      }}>Edit</button>
-                      <button onClick={(e) => {
+                      }} title="Edit">✏️</span>
+                      <span onClick={(e) => {
                         e.preventDefault();
                         e.stopPropagation();
                         handleMenuAction('remove', todo);
                         setOpenDropdown(null);
-                      }}>Remove</button>
-                      <button onClick={(e) => {
+                      }} title="Remove">🗑️</span>
+                      <span onClick={(e) => {
                         e.preventDefault();
                         e.stopPropagation();
                         handleMenuAction('togglePriority', todo);
                         setOpenDropdown(null);
-                      }}>{todo.priority ? 'Unprioritize' : 'Prioritize'}</button>
-                      <button onClick={(e) => {
+                      }} title={todo.priority ? 'Unprioritize' : 'Prioritize'}>
+                        {todo.priority ? '⭐' : '☆'}
+                      </span>
+                      <span onClick={(e) => {
                         e.preventDefault();
                         e.stopPropagation();
                         handleMenuAction('setDeadline', todo);
                         setOpenDropdown(null);
-                      }}>{todo.deadline ? 'Change Deadline' : 'Set Deadline'}</button>
+                      }} title={todo.deadline ? 'Change Deadline' : 'Set Deadline'}>
+                        {todo.deadline ? '🕒' : '⏰'}
+                      </span>
                       {todo.deadline && (
-                        <button onClick={(e) => {
+                        <span onClick={(e) => {
                           e.preventDefault();
                           e.stopPropagation();
                           handleMenuAction('removeDeadline', todo);
                           setOpenDropdown(null);
-                        }}>Remove Deadline</button>
+                        }} title="Remove Deadline">❌</span>
                       )}
                     </div>
                   )}
