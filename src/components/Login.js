@@ -16,7 +16,7 @@ const Login = () => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
       // Login successful
-      window.dispatchEvent(new Event('login-success'));
+      window.dispatchEvent(new CustomEvent('auth-success', { detail: { type: 'login' } }));
       navigate('/'); // Redirect to home page
     } catch (error) {
       setErrorMessage("Wrong password or email");

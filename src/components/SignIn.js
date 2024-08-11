@@ -16,7 +16,7 @@ const SignIn = () => {
     try {
       await createUserWithEmailAndPassword(auth, email, password);
       // Sign-in successful
-      window.dispatchEvent(new Event('signin-success'));
+      window.dispatchEvent(new CustomEvent('auth-success', { detail: { type: 'signin' } }));
       navigate('/'); // Redirect to home page
     } catch (error) {
       setErrorMessage(error.message);

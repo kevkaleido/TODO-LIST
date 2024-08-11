@@ -84,12 +84,18 @@ const HamburgerMenu = ({ isAuthenticated, userEmail, onLogout, onClearAllTodos, 
   };
 
   useEffect(() => {
-    const closeMenu = () => setIsOpen(false);
-    window.addEventListener('signin-success', closeMenu);
-    window.addEventListener('login-success', closeMenu);
+    const handleAuthSuccess = (event) => {
+      setIsOpen(false);
+      if (event.detail.type === 'login') {
+        // Handle login-specific actions if needed
+      } else if (event.detail.type === 'signin') {
+        // Handle signin-specific actions if needed
+      }
+    };
+
+    window.addEventListener('auth-success', handleAuthSuccess);
     return () => {
-      window.removeEventListener('signin-success', closeMenu);
-      window.removeEventListener('login-success', closeMenu);
+      window.removeEventListener('auth-success', handleAuthSuccess);
     };
   }, []);
 
