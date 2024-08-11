@@ -2,10 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { collection, addDoc, deleteDoc, doc, updateDoc, onSnapshot, query, where, serverTimestamp } from 'firebase/firestore';
 import { db } from '../firebase';
 import Modal from './Modal';
-import { useNavigate } from 'react-router-dom';
 
 const TodoList = ({ userId, onStartChat }) => {
-  const navigate = useNavigate();
   const [todos, setTodos] = useState([]);
   const [newTodo, setNewTodo] = useState('');
   const [showModal, setShowModal] = useState(false);
