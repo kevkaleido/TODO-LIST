@@ -2,18 +2,22 @@ import React, { useState } from 'react';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebase';
 import Modal from './Modal';
+import { useNavigate } from 'react-router-dom';
 
 const SignIn = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showModal, setShowModal] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const navigate = useNavigate();
 
   const handleSignIn = async (e) => {
     e.preventDefault();
     try {
       await createUserWithEmailAndPassword(auth, email, password);
-      // Sign-in successful, you can add additional logic here if needed
+      // Sign-in successful
+      window.dispatchEvent(new Event('signin-success'));
+      navigate('/'); // Redirect to home page
     } catch (error) {
       setErrorMessage(error.message);
       setShowModal(true);

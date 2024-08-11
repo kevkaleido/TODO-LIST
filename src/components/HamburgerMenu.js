@@ -83,6 +83,16 @@ const HamburgerMenu = ({ isAuthenticated, userEmail, onLogout, onClearAllTodos, 
     setIsOpen(false);
   };
 
+  useEffect(() => {
+    const closeMenu = () => setIsOpen(false);
+    window.addEventListener('signin-success', closeMenu);
+    window.addEventListener('login-success', closeMenu);
+    return () => {
+      window.removeEventListener('signin-success', closeMenu);
+      window.removeEventListener('login-success', closeMenu);
+    };
+  }, []);
+
   const handleToggleHistory = () => {
     onToggleHistory();
     setIsOpen(false);
