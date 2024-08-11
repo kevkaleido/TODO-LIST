@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { collection, query, where, getDocs, deleteDoc } from 'firebase/firestore';
 import { auth, db } from './firebase';
-import { BrowserRouter as Router, Route, Routes, Navigate, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate, Link, useLocation } from 'react-router-dom';
 import TodoList from './components/TodoList';
 import HistoryList from './components/HistoryList';
 import SignIn from './components/SignIn';
@@ -51,7 +51,6 @@ const App = () => {
     }
   };
 
-
   const toggleHistory = () => {
     setShowHistory(!showHistory);
   };
@@ -67,21 +66,26 @@ const App = () => {
     });
   };
 
-  return (
-    <Router>
+  const AppContent = () => {
+    const location = useLocation();
+    const showHamburgerMenu = user && location.pathname !== '/signin' && location.pathname !== '/login';
+
+    return (
       <div id="app">
-        <HamburgerMenu 
-          isAuthenticated={!!user} 
-          userEmail={user ? user.email : null}
-          onLogout={handleLogout}
-          onClearAllTodos={clearAllTodos}
-          onClearAllHistory={clearAllHistory}
-          onShowSignIn={() => {}}
-          onShowLogin={() => {}}
-          onToggleHistory={toggleHistory}
-          historyToggleText={historyToggleText}
-          showHistory={showHistory}
-        />
+        {showHamburgerMenu && (
+          <HamburgerMenu 
+            isAuthenticated={!!user} 
+            userEmail={user ? user.email : null}
+            onLogout={handleLogout}
+            onClearAllTodos={clearAllTodos}
+            onClearAllHistory={clearAllHistory}
+            onShowSignIn={() => {}}
+            onShowLogin={() => {}}
+            onToggleHistory={toggleHistory}
+            historyToggleText={historyToggleText}
+            showHistory={showHistory}
+          />
+        )}
 
         <h1>wo2do</h1>
 
@@ -110,6 +114,12 @@ const App = () => {
           } />
         </Routes>
       </div>
+    );
+  };
+
+  return (
+    <Router>
+      <AppContent />
     </Router>
   );
 };
