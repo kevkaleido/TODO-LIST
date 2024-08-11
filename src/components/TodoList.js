@@ -4,7 +4,7 @@ import { db } from '../firebase';
 import Modal from './Modal';
 import { useNavigate } from 'react-router-dom';
 
-const TodoList = ({ userId, onStartChat }) => {
+const TodoList = ({ userId }) => {
   const navigate = useNavigate();
   const [todos, setTodos] = useState([]);
   const [newTodo, setNewTodo] = useState('');
@@ -236,13 +236,6 @@ const TodoList = ({ userId, onStartChat }) => {
                         handleMenuAction('remove', todo);
                         setOpenDropdown(null);
                       }}>Remove</button>
-                      <button onClick={(e) => {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        onStartChat(todo);
-                        navigate('/chat');
-                        setOpenDropdown(null);
-                      }}>Chat</button>
                     </div>
                   )}
                 </div>
