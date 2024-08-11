@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import Modal from './Modal';
 import '../HamburgerMenu.css';
 import { collection, query, where, onSnapshot } from 'firebase/firestore';
 import { db } from '../firebase';
 
-const HamburgerMenu = ({ isAuthenticated, userEmail, onLogout, onClearAllTodos, onClearAllHistory, onShowSignIn, onShowLogin, onToggleHistory, historyToggleText, showHistory }) => {
+const HamburgerMenu = ({ isAuthenticated, userEmail, onLogout, onClearAllTodos, onClearAllHistory, onShowSignIn, onShowLogin, onToggleHistory, historyToggleText, showHistory, onClearChats }) => {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -105,6 +105,22 @@ const HamburgerMenu = ({ isAuthenticated, userEmail, onLogout, onClearAllTodos, 
     navigate('/');
   };
 
+  const location = useLocation();
+  const isChatRoute = location.pathname === '/chat';
+
+  const handleClearChats = () => {
+    setModalContent({
+      title: "Clear All Chats",
+      message: "Are you sure you want to clear all chat messages? You can't revert this.",
+      onConfirm: () => {
+        onClearChats();
+        setShowModal(false);
+        setIsOpen(false);
+      }
+    });
+    setShowModal(true);
+  };
+
   return (
     <div>
       <div className="hamburger" onClick={toggleMenu}>
@@ -116,12 +132,21 @@ const HamburgerMenu = ({ isAuthenticated, userEmail, onLogout, onClearAllTodos, 
             <div className="user-email-container">
               <strong>{userEmail || 'Email not available'}</strong>
             </div>
-            <div onClick={handleToggleHistory}>{historyToggleText}</div>
-            {!showHistory && <div onClick={handleClearAllTodos}>Clear All Todos</div>}
-            {showHistory && <div onClick={handleClearAllHistory}>Clear All History</div>}
-            <Link to="/chat" onClick={() => setIsOpen(false)}>
-              Chat {unreadMessages > 0 && <span className="notification">{unreadMessages}</span>}
-            </Link>
+            {isChatRoute ? (
+              <>
+                <Link to="/" onClick={() => setIsOpen(false)}>Tasks</Link>
+                <div onClick={handleClearChats}>Clear Chats</div>
+              </>
+            ) : (
+              <>
+                <div onClick={handleToggleHistory}>{historyToggleText}</div>
+                {!showHistory && <div onClick={handleClearAllTodos}>Clear All Todos</div>}
+                {showHistory && <div onClick={handleClearAllHistory}>Clear All History</div>}
+                <Link to="/chat" onClick={() => setIsOpen(false)}>
+                  Chat {unreadMessages > 0 && <span className="notification">{unreadMessages}</span>}
+                </Link>
+              </>
+            )}
             <div onClick={handleLogout}>Logout</div>
           </>
         ) : (

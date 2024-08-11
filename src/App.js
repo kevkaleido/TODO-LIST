@@ -51,6 +51,16 @@ const App = () => {
     }
   };
 
+  const clearChats = async () => {
+    if (user) {
+      const q = query(collection(db, 'messages'), where('userId', '==', user.uid));
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((doc) => {
+        deleteDoc(doc.ref);
+      });
+    }
+  };
+
   const toggleHistory = () => {
     setShowHistory(!showHistory);
   };
@@ -84,6 +94,7 @@ const App = () => {
             onToggleHistory={toggleHistory}
             historyToggleText={historyToggleText}
             showHistory={showHistory}
+            onClearChats={clearChats}
           />
         )}
 
