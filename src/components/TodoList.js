@@ -187,16 +187,54 @@ const TodoList = ({ userId }) => {
   };
 
   const handleSetDeadline = async (id) => {
-    const deadline = prompt("Enter deadline (YYYY-MM-DD):");
-    if (deadline) {
-      try {
-        await updateDoc(doc(db, 'todos', id), { deadline });
-        setError(null);
-      } catch (error) {
-        console.error("Error setting todo deadline:", error);
-        setError("Failed to set todo deadline. Please try again.");
+    const currentDateTime = new Date().toISOString().slice(0, 16);
+    const deadlineInput = document.createElement('input');
+    deadlineInput.type = 'datetime-local';
+    deadlineInput.value = currentDateTime;
+    
+    const wrapper = document.createElement('div');
+    wrapper.appendChild(deadlineInput);
+    wrapper.style.padding = '20px';
+    wrapper.style.backgroundColor = 'white';
+    wrapper.style.borderRadius = '5px';
+    wrapper.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
+
+    const setDeadline = () => {
+      const selectedDeadline = deadlineInput.value;
+      if (selectedDeadline) {
+        updateDoc(doc(db, 'todos', id), { deadline: selectedDeadline })
+          .then(() => {
+            setError(null);
+            document.body.removeChild(wrapper);
+          })
+          .catch((error) => {
+            console.error("Error setting todo deadline:", error);
+            setError("Failed to set todo deadline. Please try again.");
+          });
       }
-    }
+    };
+
+    const cancelButton = document.createElement('button');
+    cancelButton.textContent = 'Cancel';
+    cancelButton.style.marginRight = '10px';
+    cancelButton.onclick = () => document.body.removeChild(wrapper);
+
+    const confirmButton = document.createElement('button');
+    confirmButton.textContent = 'Set Deadline';
+    confirmButton.onclick = setDeadline;
+
+    const buttonWrapper = document.createElement('div');
+    buttonWrapper.style.marginTop = '10px';
+    buttonWrapper.appendChild(cancelButton);
+    buttonWrapper.appendChild(confirmButton);
+    wrapper.appendChild(buttonWrapper);
+
+    document.body.appendChild(wrapper);
+    wrapper.style.position = 'fixed';
+    wrapper.style.top = '50%';
+    wrapper.style.left = '50%';
+    wrapper.style.transform = 'translate(-50%, -50%)';
+    wrapper.style.zIndex = '1000';
   };
 
   const toggleDropdown = (todoId, e) => {
