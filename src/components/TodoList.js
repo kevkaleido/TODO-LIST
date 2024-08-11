@@ -173,6 +173,18 @@ const TodoList = ({ userId }) => {
       handleTogglePriority(todo.id, !todo.priority);
     } else if (action === 'setDeadline') {
       handleSetDeadline(todo.id);
+    } else if (action === 'removeDeadline') {
+      handleRemoveDeadline(todo.id);
+    }
+  };
+
+  const handleRemoveDeadline = async (id) => {
+    try {
+      await updateDoc(doc(db, 'todos', id), { deadline: null });
+      setError(null);
+    } catch (error) {
+      console.error("Error removing todo deadline:", error);
+      setError("Failed to remove todo deadline. Please try again.");
     }
   };
 
@@ -187,7 +199,8 @@ const TodoList = ({ userId }) => {
   };
 
   const handleSetDeadline = async (id) => {
-    const currentDateTime = new Date().toISOString().slice(0, 16);
+    const todo = todos.find(t => t.id === id);
+    const currentDateTime = todo.deadline || new Date().toISOString().slice(0, 16);
     const deadlineInput = document.createElement('input');
     deadlineInput.type = 'datetime-local';
     deadlineInput.value = currentDateTime;
@@ -340,13 +353,21 @@ const TodoList = ({ userId }) => {
                         e.stopPropagation();
                         handleMenuAction('setDeadline', todo);
                         setOpenDropdown(null);
-                      }}>Set Deadline</button>
+                      }}>{todo.deadline ? 'Change Deadline' : 'Set Deadline'}</button>
+                      {todo.deadline && (
+                        <button onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          handleMenuAction('removeDeadline', todo);
+                          setOpenDropdown(null);
+                        }}>Remove Deadline</button>
+                      )}
                     </div>
                   )}
                 </div>
                 <span className="timestamp">{formatDate(todo.timestamp)}</span>
                 {todo.priority && <span className="priority-indicator">⭐</span>}
-                {todo.deadline && <span className="deadline-indicator">🕒 {new Date(todo.deadline).toLocaleDateString()}</span>}
+                {todo.deadline && <span className="deadline-indicator">🕒</span>}
               </>
             )}
           </li>
