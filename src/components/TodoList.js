@@ -3,6 +3,7 @@ import { collection, addDoc, deleteDoc, doc, updateDoc, onSnapshot, query, where
 import { db } from '../firebase';
 import Modal from './Modal';
 import { toast } from 'react-toastify';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 const TodoList = ({ userId }) => {
   const [todos, setTodos] = useState([]);
@@ -175,6 +176,9 @@ const TodoList = ({ userId }) => {
       handleSetDeadline(todo.id);
     } else if (action === 'removeDeadline') {
       handleRemoveDeadline(todo.id);
+    } else if (action === 'copy') {
+      // The actual copying is handled in the render, this is just for closing the dropdown
+      setOpenDropdown(null);
     }
   };
 
@@ -366,6 +370,18 @@ const TodoList = ({ userId }) => {
                           setOpenDropdown(null);
                         }} title="Remove Deadline">❌</span>
                       )}
+                      <CopyToClipboard 
+                        text={todo.text}
+                        onCopy={() => {
+                          toast.success('Todo text copied to clipboard!');
+                          handleMenuAction('copy', todo);
+                        }}
+                      >
+                        <span onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                        }} title="Copy">📋</span>
+                      </CopyToClipboard>
                     </div>
                   )}
                 </div>
