@@ -296,6 +296,7 @@ const TodoList = ({ userId }) => {
           >
             {editingTodo === todo.id ? (
               <textarea
+                className="edit-todo-textarea"
                 value={editText}
                 onChange={(e) => setEditText(e.target.value)}
                 onBlur={() => handleEditTodo(todo.id, editText)}
@@ -307,13 +308,6 @@ const TodoList = ({ userId }) => {
                 }}
                 onClick={(e) => e.stopPropagation()}
                 autoFocus
-                style={{
-                  width: '70%',
-                  minHeight: '60px',
-                  resize: 'vertical',
-                  padding: '5px',
-                  boxSizing: 'border-box'
-                }}
               />
             ) : (
               <>
