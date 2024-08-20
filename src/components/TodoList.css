@@ -1,0 +1,11 @@
+.dropdown-content {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
+}
+
+.dropdown-content.visible {
+  max-height: 200px; /* Adjust this value based on your content */
+  opacity: 1;
+}

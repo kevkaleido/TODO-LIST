@@ -4,6 +4,7 @@ import { db } from '../firebase';
 import Modal from './Modal';
 import { toast } from 'react-toastify';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
+import './TodoList.css'; // Add this line to import the new CSS file
 
 const TodoList = ({ userId }) => {
   const [todos, setTodos] = useState([]);
@@ -14,6 +15,7 @@ const TodoList = ({ userId }) => {
   const [editingTodo, setEditingTodo] = useState(null);
   const [editText, setEditText] = useState('');
   const [openDropdown, setOpenDropdown] = useState(null);
+  const [isDropdownVisible, setIsDropdownVisible] = useState(false);
 
   const isValidUrl = (string) => {
     try {
@@ -256,7 +258,13 @@ const TodoList = ({ userId }) => {
 
   const toggleDropdown = (todoId, e) => {
     e.stopPropagation();
-    setOpenDropdown(openDropdown === todoId ? null : todoId);
+    if (openDropdown === todoId) {
+      setIsDropdownVisible(false);
+      setTimeout(() => setOpenDropdown(null), 300); // Wait for animation to finish
+    } else {
+      setOpenDropdown(todoId);
+      setIsDropdownVisible(true);
+    }
   };
 
   useEffect(() => {
@@ -327,7 +335,7 @@ const TodoList = ({ userId }) => {
                     <div className="hamburger-line"></div>
                   </div>
                   {openDropdown === todo.id && (
-                    <div className="dropdown-content">
+                    <div className={`dropdown-content ${isDropdownVisible ? 'visible' : ''}`}>
                       <span onClick={(e) => {
                         e.preventDefault();
                         e.stopPropagation();
