@@ -273,8 +273,20 @@ const TodoList = ({ userId }) => {
         setOpenDropdown(null);
       }
     };
+    const preventScrollClose = (e) => {
+      e.stopPropagation();
+    };
     document.addEventListener('click', closeDropdown);
-    return () => document.removeEventListener('click', closeDropdown);
+    const dropdownContent = document.querySelector('.dropdown-content');
+    if (dropdownContent) {
+      dropdownContent.addEventListener('touchmove', preventScrollClose);
+    }
+    return () => {
+      document.removeEventListener('click', closeDropdown);
+      if (dropdownContent) {
+        dropdownContent.removeEventListener('touchmove', preventScrollClose);
+      }
+    };
   }, []);
 
   const formatDate = (dateString) => {
